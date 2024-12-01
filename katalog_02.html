@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilderkatalog</title>
+    <style>
+        /* Allgemeine Stile für die Seite */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .catalog {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .image-item {
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 300px;  /* Maximale Breite für jedes Bild */
+        }
+
+        .image-item img {
+            max-width: 100%;  /* Bild passt immer innerhalb des Containers */
+            height: auto;     /* Bildhöhe wird im Verhältnis zur Breite beibehalten */
+            border-radius: 8px;
+        }
+
+        select {
+            margin-top: 10px;
+            padding: 5px;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .catalog {
+                flex-direction: column; /* Bilder untereinander auf mobilen Geräten */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Bilderkatalog</h1>
+    <p>Wählen Sie den gewünschten Bildtyp (Foto oder Leinwand) aus.</p>
+
+    <div class="catalog">
+        <!-- Bild 1 -->
+        <div class="image-item">
+            <img id="image1" src="https://gym80.de/wp-content/uploads/2023/11/Booty-Shooting-Gym800221-scaled-e1699368432914.jpg" alt="Bild 1">
+            <p>Bild 1</p>
+            <select id="options1" onchange="updateImage('image1', 'options1')">
+                <option value="foto">Foto</option>
+                <option value="leinwand">Leinwand</option>
+            </select>
+        </div>
+
+        <!-- Bild 2 -->
+        <div class="image-item">
+            <img id="image2" src="https://m.media-amazon.com/images/I/71DeQYsXd3S._AC_SL1500_.jpg" alt="Bild 2">
+            <p>Bild 2</p>
+            <select id="options2" onchange="updateImage('image2', 'options2')">
+                <option value="foto">Foto</option>
+                <option value="leinwand">Leinwand</option>
+            </select>
+        </div>
+
+        <!-- Bild 3 -->
+        <div class="image-item">
+            <img id="image3" src="https://i.ebayimg.com/00/s/MTYwMFgxNjAw/z/sg0AAOSwxN5kEtvA/$_3.jpg" alt="Bild 3">
+            <p>Bild 3</p>
+            <select id="options3" onchange="updateImage('image3', 'options3')">
+                <option value="foto">Foto</option>
+                <option value="leinwand">Leinwand</option>
+            </select>
+        </div>
+    </div>
+
+    <script>
+/*         function updateImage(imageId, selectId) {
+            var image = document.getElementById(imageId);
+            var option = document.getElementById(selectId).value;
+
+            // Ändern Sie das Bild basierend auf der Auswahl
+            if (option === 'foto') {
+                image.src = 'https://via.placeholder.com/300';  // Fotogröße bleibt immer 300px
+            } else if (option === 'leinwand') {
+                image.src = 'https://via.placeholder.com/500x500?text=Leinwand';  // Leinwandgröße bleibt immer 500x500px
+            }
+        } */
+    </script>
+
+</body>
+</html>
