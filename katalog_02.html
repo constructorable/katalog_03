@@ -63,16 +63,24 @@
 <body>
 
     <h1>Bilderkatalog</h1>
-    <p>Wählen Sie den gewünschten Bildtyp (Foto oder Leinwand) aus.</p>
+    <p>Wählen Sie den gewünschten Bildtyp, die Größe und die Laminatoption aus.</p>
 
     <div class="catalog">
         <!-- Bild 1 -->
         <div class="image-item">
             <img id="image1" src="https://gym80.de/wp-content/uploads/2023/11/Booty-Shooting-Gym800221-scaled-e1699368432914.jpg" alt="Bild 1">
             <p>Bild 1</p>
-            <select id="options1" onchange="updateImage('image1', 'options1')">
+            <select id="options1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
                 <option value="foto">Foto</option>
                 <option value="leinwand">Leinwand</option>
+            </select>
+            <select id="size1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                <option value="10x15">10x15 cm</option>
+                <option value="13x18">13x18 cm</option>
+            </select>
+            <select id="laminate1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                <option value="laminiert">Laminiert</option>
+                <option value="nicht-laminiert">Nicht laminiert</option>
             </select>
         </div>
 
@@ -80,9 +88,17 @@
         <div class="image-item">
             <img id="image2" src="https://m.media-amazon.com/images/I/71DeQYsXd3S._AC_SL1500_.jpg" alt="Bild 2">
             <p>Bild 2</p>
-            <select id="options2" onchange="updateImage('image2', 'options2')">
+            <select id="options2" onchange="updateImage('image2', 'options2', 'size2', 'laminate2')">
                 <option value="foto">Foto</option>
                 <option value="leinwand">Leinwand</option>
+            </select>
+            <select id="size2" onchange="updateImage('image2', 'options2', 'size2', 'laminate2')">
+                <option value="10x15">10x15 cm</option>
+                <option value="13x18">13x18 cm</option>
+            </select>
+            <select id="laminate2" onchange="updateImage('image2', 'options2', 'size2', 'laminate2')">
+                <option value="laminiert">Laminiert</option>
+                <option value="nicht-laminiert">Nicht laminiert</option>
             </select>
         </div>
 
@@ -90,25 +106,37 @@
         <div class="image-item">
             <img id="image3" src="https://i.ebayimg.com/00/s/MTYwMFgxNjAw/z/sg0AAOSwxN5kEtvA/$_3.jpg" alt="Bild 3">
             <p>Bild 3</p>
-            <select id="options3" onchange="updateImage('image3', 'options3')">
+            <select id="options3" onchange="updateImage('image3', 'options3', 'size3', 'laminate3')">
                 <option value="foto">Foto</option>
                 <option value="leinwand">Leinwand</option>
+            </select>
+            <select id="size3" onchange="updateImage('image3', 'options3', 'size3', 'laminate3')">
+                <option value="10x15">10x15 cm</option>
+                <option value="13x18">13x18 cm</option>
+            </select>
+            <select id="laminate3" onchange="updateImage('image3', 'options3', 'size3', 'laminate3')">
+                <option value="laminiert">Laminiert</option>
+                <option value="nicht-laminiert">Nicht laminiert</option>
             </select>
         </div>
     </div>
 
     <script>
-/*         function updateImage(imageId, selectId) {
+        function updateImage(imageId, optionId, sizeId, laminateId) {
             var image = document.getElementById(imageId);
-            var option = document.getElementById(selectId).value;
+            var option = document.getElementById(optionId).value;
+            var size = document.getElementById(sizeId).value;
+            var laminate = document.getElementById(laminateId).value;
 
-            // Ändern Sie das Bild basierend auf der Auswahl
-            if (option === 'foto') {
-                image.src = 'https://via.placeholder.com/300';  // Fotogröße bleibt immer 300px
-            } else if (option === 'leinwand') {
-                image.src = 'https://via.placeholder.com/500x500?text=Leinwand';  // Leinwandgröße bleibt immer 500x500px
-            }
-        } */
+            // Beispielhafte Logik zum Setzen des Bildes basierend auf der Auswahl
+            // Bildgröße und Laminatoption werden nicht visuell beeinflusst
+            console.log(`Option: ${option}, Größe: ${size}, Laminat: ${laminate}`);
+
+            // (Optional) Hier können Sie das Bild ändern oder ein Text-Overlay hinzufügen, wenn gewünscht
+            // Zum Beispiel könnte der Bildlink in einer realen Anwendung geändert werden
+            // Beispielweise ändern Sie die Bildgröße abhängig von der Auswahl des Benutzers
+            // Allerdings wird die Bildgröße im Viewer in diesem Fall konstant bleiben, wie gewünscht.
+        }
     </script>
 
 </body>
