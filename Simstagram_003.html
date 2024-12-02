@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram-ähnliches Layout</title>
+    <style>
+        /* Reset styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Allgemeiner Stil */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #736060;
+            padding: 20px;
+        }
+
+        /* Galerie-Container */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        /* Einzelne Bilder */
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        /* Hover-Effekt */
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Unscharfes Bild */
+        .blurred {
+            filter: blur(10px);
+        }
+
+        .unlocked {
+            filter: none; /* Entfernt den Unschärfe-Effekt */
+        }
+
+        .Post_01 {
+            margin-bottom:30px;
+        }
+
+        .title_01 {
+            color:#fff;
+            margin-bottom: 10px;
+        }
+
+.uberschrift {
+    text-align: center;
+  color: #fff;
+  font-size: 22px;
+  font-family: Arial, sans-serif;
+
+}
+
+    </style>
+</head>
+<body>
+    <div class="gallery">
+        <div class="uberschrift">Bilderauswahl</div>
+    
+        <div class="Post_01">
+    
+            <div class="gallery-item">
+                <img src="https://constructorable.github.io/katalog_03/BootyGirl.jpg" alt="Booty Girl">
+            </div>
+    
+            <div class="title_01">Sweet Booty</div>
+    
+            <select id="options1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                <option value="foto">Foto</option>
+                <option value="leinwand">Leinwand</option>
+            </select>
+            <select id="size1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                <option value="10x15">10x15 cm</option>
+                <option value="13x18">13x18 cm</option>
+            </select>
+            <select id="laminate1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                <option value="laminiert">Laminiert</option>
+                <option value="nicht-laminiert">Nicht laminiert</option>
+            </select>
+        </div>
+    
+    
+        <div class="Post_01">
+            <div class="gallery-item">
+                <!-- Unscharfes Bild -->
+                <img src="https://constructorable.github.io/katalog_03/BootyGirlfull.jpg" alt="Booty Girl" class="blurred" id="password-protected">
+            </div>
+            <div class="title_01">Red Dessous Desire</div>
+    
+            <select id="options1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                <option value="foto">Foto</option>
+                <option value="leinwand">Leinwand</option>
+            </select>
+            <select id="size1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                <option value="10x15">10x15 cm</option>
+                <option value="13x18">13x18 cm</option>
+            </select>
+            <select id="laminate1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                <option value="laminiert">Laminiert</option>
+                <option value="nicht-laminiert">Nicht laminiert</option>
+            </select>
+        </div>
+    
+    
+        <div class="Post_01">
+            <div class="gallery-item">
+                <img src="https://constructorable.github.io/katalog_03/whitedream.jpg" alt="Booty Girl">
+            </div>
+            <div class="title_01">White Dreams</div>
+    
+            <select id="options1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                <option value="foto">Foto</option>
+                <option value="leinwand">Leinwand</option>
+            </select>
+            <select id="size1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                <option value="10x15">10x15 cm</option>
+                <option value="13x18">13x18 cm</option>
+            </select>
+            <select id="laminate1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                <option value="laminiert">Laminiert</option>
+                <option value="nicht-laminiert">Nicht laminiert</option>
+            </select>
+        </div>
+
+        <div class="Post_01">
+            <div class="gallery-item">
+                <img src="https://constructorable.github.io/katalog_03/tenor.gif" alt="Booty Girl" class="blurred" id="password-protected2">
+            </div>
+            <div class="title_01">make you horny</div>
+         </div>
+
+    </div>
+
+    <script>
+        // Passwortgeschütztes Bild
+        const protectedImage = document.getElementById('password-protected');
+
+        // Event-Listener für das unscharfe Bild
+        protectedImage.addEventListener('click', () => {
+            const password = prompt('Bitte geben Sie das Passwort ein, um das Bild freizuschalten:');
+            if (password === '12345') {
+                protectedImage.classList.remove('blurred');
+                protectedImage.classList.add('unlocked');
+                alert('Das Bild wurde erfolgreich freigeschaltet!');
+            } else {
+                alert('Falsches Passwort. Versuchen Sie es erneut.');
+            }
+        });
+
+
+
+
+        const protectedImage2 = document.getElementById('password-protected2');
+        // Event-Listener für das unscharfe Bild
+        protectedImage2.addEventListener('click', () => {
+            const password = prompt('Bitte geben Sie das Passwort ein, um das Bild freizuschalten:');
+            if (password === '12345') {
+                protectedImage2.classList.remove('blurred');
+                protectedImage2.classList.add('unlocked');
+                alert('Das Bild wurde erfolgreich freigeschaltet!');
+            } else {
+                alert('Falsches Passwort. Versuchen Sie es erneut.');
+            }
+        });
+
+        // Interaktives Vergrößern beim Anklicken
+        document.querySelectorAll('.gallery-item img').forEach((img) => {
+            img.addEventListener('click', () => {
+                // Bild in voller Größe anzeigen (aber nicht bei unscharfen Bildern)
+                if (img.classList.contains('blurred')) return;
+
+                const modal = document.createElement('div');
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100vw';
+                modal.style.height = '100vh';
+                modal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                modal.style.display = 'flex';
+                modal.style.justifyContent = 'center';
+                modal.style.alignItems = 'center';
+                modal.style.zIndex = '1000';
+                modal.innerHTML = `<img src="${img.src}" style="max-width: 90%; max-height: 90%; border-radius: 8px;">`;
+
+                // Schließen bei Klick auf den Hintergrund
+                modal.addEventListener('click', () => {
+                    modal.remove();
+                });
+
+                document.body.appendChild(modal);
+            });
+        });
+    </script>
+</body>
+</html>
