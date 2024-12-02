@@ -78,11 +78,54 @@
 
 }
 
+.select-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 300px;
+        }
+
+select {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            background-color: #fff;
+            color: #333;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            appearance: none; /* Entfernt native Pfeile */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23666'%3E%3Cpath fill-rule='evenodd' d='M10 14l5-5H5l5 5zm0-8l-5 5h10L10 6z' clip-rule='evenodd'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 12px;
+        }
+
+        /* Hover Effect */
+        select:hover {
+            border-color: #aaa;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Focus Effect */
+        select:focus {
+            outline: none;
+            border-color: #5b9bd5;
+            box-shadow: 0 0 0 4px rgba(91, 155, 213, 0.3);
+        }
+
+        /* Option Styles */
+        select option {
+            padding: 10px;
+            background-color: #fff;
+        }
+
     </style>
 </head>
 <body>
     <div class="gallery">
-        <div class="uberschrift">Bilderauswahl</div>
+        <div class="uberschrift">Bilderauswahl 😋</div>
     
         <div class="Post_01">
     
@@ -92,18 +135,20 @@
     
             <div class="title_01">Sweet Booty</div>
     
-            <select id="options1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                <option value="foto">Foto</option>
-                <option value="leinwand">Leinwand</option>
-            </select>
-            <select id="size1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                <option value="10x15">10x15 cm</option>
-                <option value="13x18">13x18 cm</option>
-            </select>
-            <select id="laminate1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                <option value="laminiert">Laminiert</option>
-                <option value="nicht-laminiert">Nicht laminiert</option>
-            </select>
+            <div class="select-container">
+                <select id="options1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                    <option value="foto">Foto</option>
+                    <option value="leinwand">Leinwand</option>
+                </select>
+                <select id="size1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                    <option value="10x15">10x15 cm</option>
+                    <option value="13x18">13x18 cm</option>
+                </select>
+                <select id="laminate1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                    <option value="laminiert">Laminiert</option>
+                    <option value="nicht-laminiert">Nicht laminiert</option>
+                </select>
+            </div>
         </div>
     
     
@@ -114,18 +159,20 @@
             </div>
             <div class="title_01">Red Dessous Desire</div>
     
-            <select id="options1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                <option value="foto">Foto</option>
-                <option value="leinwand">Leinwand</option>
-            </select>
-            <select id="size1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                <option value="10x15">10x15 cm</option>
-                <option value="13x18">13x18 cm</option>
-            </select>
-            <select id="laminate1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                <option value="laminiert">Laminiert</option>
-                <option value="nicht-laminiert">Nicht laminiert</option>
-            </select>
+            <div class="select-container">
+                <select id="options1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                    <option value="foto">Foto</option>
+                    <option value="leinwand">Leinwand</option>
+                </select>
+                <select id="size1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                    <option value="10x15">10x15 cm</option>
+                    <option value="13x18">13x18 cm</option>
+                </select>
+                <select id="laminate1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                    <option value="laminiert">Laminiert</option>
+                    <option value="nicht-laminiert">Nicht laminiert</option>
+                </select>
+            </div>
         </div>
     
     
@@ -135,18 +182,20 @@
             </div>
             <div class="title_01">White Dreams</div>
     
-            <select id="options1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                <option value="foto">Foto</option>
-                <option value="leinwand">Leinwand</option>
-            </select>
-            <select id="size1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                <option value="10x15">10x15 cm</option>
-                <option value="13x18">13x18 cm</option>
-            </select>
-            <select id="laminate1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                <option value="laminiert">Laminiert</option>
-                <option value="nicht-laminiert">Nicht laminiert</option>
-            </select>
+            <div class="select-container">
+                <select id="options1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                    <option value="foto">Foto</option>
+                    <option value="leinwand">Leinwand</option>
+                </select>
+                <select id="size1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                    <option value="10x15">10x15 cm</option>
+                    <option value="13x18">13x18 cm</option>
+                </select>
+                <select id="laminate1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
+                    <option value="laminiert">Laminiert</option>
+                    <option value="nicht-laminiert">Nicht laminiert</option>
+                </select>
+            </div>
         </div>
 
         <div class="Post_01">
