@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SimoniGram</title>
+
+    <button onclick="generatePDF()" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 20px; background-color: #5b9bd5; color: white; border: none; border-radius: 5px; cursor: pointer;">PDF Bestellbestätigung erstellen</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
     <style>
         /* Reset styles */
         body, html {
@@ -177,6 +182,7 @@ select {
 </head>
 <body>
 
+ 
     <div class="password-overlay" id="password-overlay">
         <div class="password-modal">
             <h2>Passwort erforderlich</h2>
@@ -259,12 +265,12 @@ select {
             </div>
         </div>
 
-        <div class="Post_01">
+<!--         <div class="Post_01">
             <div class="gallery-item">
                 <img src="https://constructorable.github.io/katalog_03/tenor.gif" alt="Booty Girl" class="blurred" id="password-protected2">
             </div>
             <div class="title_01">make you horny</div>
-         </div>
+         </div> -->
 
     </div>
 
@@ -284,64 +290,82 @@ function verifyPassword() {
         }
 
 
-        // Passwortgeschütztes Bild
-        const protectedImage = document.getElementById('password-protected');
-
-        // Event-Listener für das unscharfe Bild
-        protectedImage.addEventListener('click', () => {
-            const password = prompt('Bitte Passwort eingeben, um das Bild freizuschalten:');
-            if (password === '12345') {
-                protectedImage.classList.remove('blurred');
-                protectedImage.classList.add('unlocked');
-                /* alert('Das Bild wurde erfolgreich freigeschaltet!'); */
-            } else {
-                alert('Falsches Passwort. Versuchen Sie es erneut.');
-            }
-        });
 
 
+        async function getBase64Image(url) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = "Anonymous";
+        img.onload = () => {
+            const canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            resolve(canvas.toDataURL("image/jpeg")); // Base64-String
+        };
+        img.onerror = () => reject(new Error("Bild konnte nicht geladen werden."));
+        img.src = url;
+    });
+}
 
 
-        const protectedImage2 = document.getElementById('password-protected2');
-        // Event-Listener für das unscharfe Bild
-        protectedImage2.addEventListener('click', () => {
-            const password = prompt('Bitte Passwort eingeben, um das Bild freizuschalten:');
-            if (password === '12345') {
-                protectedImage2.classList.remove('blurred');
-                protectedImage2.classList.add('unlocked');
-                /* alert('Das Bild wurde erfolgreich freigeschaltet!'); */
-            } else {
-                alert('Falsches Passwort. Versuchen Sie es erneut.');
-            }
-        });
 
-        // Interaktives Vergrößern beim Anklicken
-        document.querySelectorAll('.gallery-item img').forEach((img) => {
-            img.addEventListener('click', () => {
-                // Bild in voller Größe anzeigen (aber nicht bei unscharfen Bildern)
-                if (img.classList.contains('blurred')) return;
+async function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
+    let yPosition = 10; // Startposition
 
-                const modal = document.createElement('div');
-                modal.style.position = 'fixed';
-                modal.style.top = '0';
-                modal.style.left = '0';
-                modal.style.width = '100vw';
-                modal.style.height = '100vh';
-                modal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-                modal.style.display = 'flex';
-                modal.style.justifyContent = 'center';
-                modal.style.alignItems = 'center';
-                modal.style.zIndex = '1000';
-                modal.innerHTML = `<img src="${img.src}" style="max-width: 90%; max-height: 90%; border-radius: 8px;">`;
+    pdf.setFontSize(16);
+    pdf.text("Bestellbestätigung", 10, yPosition);
+    yPosition += 10;
 
-                // Schließen bei Klick auf den Hintergrund
-                modal.addEventListener('click', () => {
-                    modal.remove();
-                });
+    const posts = document.querySelectorAll(".Post_01");
 
-                document.body.appendChild(modal);
-            });
-        });
+    for (let index = 0; index < posts.length; index++) {
+        const post = posts[index];
+        const title = post.querySelector(".title_01").textContent;
+        const imageUrl = post.querySelector("img").src;
+        const option = post.querySelector(`#options1`).value;
+        const size = post.querySelector(`#size1`).value;
+        const laminate = post.querySelector(`#laminate1`).value;
+
+        pdf.setFontSize(14);
+        pdf.text(`Bild ${index + 1}: ${title}`, 10, yPosition);
+        yPosition += 10;
+
+        pdf.setFontSize(12);
+        pdf.text(`- Option: ${option}`, 10, yPosition);
+        yPosition += 7;
+        pdf.text(`- Größe: ${size}`, 10, yPosition);
+        yPosition += 7;
+        pdf.text(`- Laminierung: ${laminate}`, 10, yPosition);
+        yPosition += 10;
+
+        // Base64-Bild laden und hinzufügen
+        try {
+            const base64Image = await getBase64Image(imageUrl);
+            pdf.addImage(base64Image, "JPEG", 10, yPosition, 50, 50);
+            yPosition += 60;
+        } catch (error) {
+            console.error("Fehler beim Laden des Bildes:", error);
+            pdf.setFontSize(10);
+            pdf.text("Bild konnte nicht geladen werden.", 10, yPosition);
+            yPosition += 20;
+        }
+
+        if (yPosition > 260) {
+            pdf.addPage();
+            yPosition = 10;
+        }
+    }
+
+    pdf.save("Bestellbestätigung.pdf");
+}
+
+
+
+    
     </script>
 </body>
 </html>
