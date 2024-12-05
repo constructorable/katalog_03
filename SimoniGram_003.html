@@ -1,371 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SimoniGram</title>
-
-    <button onclick="generatePDF()" style="position: fixed; bottom: 20px; right: 20px; padding: 10px 20px; background-color: #5b9bd5; color: white; border: none; border-radius: 5px; cursor: pointer;">PDF Bestellbestätigung erstellen</button>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <title>Kommentar-Funktion</title>
 
     <style>
-        /* Reset styles */
-        body, html {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Allgemeiner Stil */
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #736060;
+            font-family: Arial, sans-serif;
+            margin: 0;
             padding: 20px;
-            overflow: hidden; /* Verhindert Scrollen */
         }
 
-        /* Passwort-Overlay */
-        .password-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .password-modal {
-            background-color: #fff;
+        .post-container {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
+            background-color: #f9f9f9;
         }
 
-        .password-modal h2 {
-            margin-bottom: 15px;
-            font-size: 20px;
+        .comments-container {
+            margin-top: 20px;
         }
 
-        .password-modal input {
-            width: 80%;
+        .comment {
             padding: 10px;
+            border-bottom: 1px solid #ddd;
             margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
+            background-color: #e9f7fc;
         }
 
-        .password-modal button {
-            padding: 10px 20px;
-            background-color: #5b9bd5;
-            color: #fff;
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
             border: none;
-            border-radius: 4px;
-            font-size: 16px;
             cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
         }
 
-        .password-modal button:hover {
-            background-color: #4a8cc7;
+        button:hover {
+            background-color: #218838;
         }
-
-        /* Galerie-Container */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 10px;
-            width: 100%;
-            max-width: 900px;
-            visibility: hidden; /* Galerie standardmäßig ausgeblendet */
-        }
-
-        /* Einzelne Bilder */
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        /* Hover-Effekt */
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        /* Unscharfes Bild */
-        .blurred {
-            filter: blur(10px);
-        }
-
-        .unlocked {
-            filter: none; /* Entfernt den Unschärfe-Effekt */
-        }
-
-        .Post_01 {
-            margin-bottom:30px;
-        }
-
-        .title_01 {
-            color:#fff;
-            margin-bottom: 10px;
-        }
-
-.uberschrift {
-    text-align: center;
-  color: #fff;
-  font-size: 22px;
-  font-family: Arial, sans-serif;
-
-}
-
-.select-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            width: 300px;
-        }
-
-select {
-            width: 100%;
-            padding: 10px 15px;
-            border-radius: 8px;
-            border: 2px solid #ddd;
-            background-color: #fff;
-            color: #333;
-            font-size: 16px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            appearance: none; /* Entfernt native Pfeile */
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23666'%3E%3Cpath fill-rule='evenodd' d='M10 14l5-5H5l5 5zm0-8l-5 5h10L10 6z' clip-rule='evenodd'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            background-size: 12px;
-        }
-
-        /* Hover Effect */
-        select:hover {
-            border-color: #aaa;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Focus Effect */
-        select:focus {
-            outline: none;
-            border-color: #5b9bd5;
-            box-shadow: 0 0 0 4px rgba(91, 155, 213, 0.3);
-        }
-
-        /* Option Styles */
-        select option {
-            padding: 10px;
-            background-color: #fff;
-        }
-
     </style>
 </head>
+
 <body>
+    <h2>SimoniGram</h2>
+    <input type="text" id="username" placeholder="Ihr Name" />
 
- 
-    <div class="password-overlay" id="password-overlay">
-        <div class="password-modal">
-            <h2>Passwort erforderlich</h2>
-            <input type="password" id="page-password" placeholder="Passwort eingeben">
-            <button onclick="verifyPassword()">Bestätigen</button>
+    <div id="posts-container">
+        <div class="post-container" data-post-id="post1">
+            <h2>Mein erster Blog-Beitrag</h2>
+            <p>Hier ist der Inhalt des ersten Beitrags...</p>
+            <img src="https://constructorable.github.io/katalog_03/BootyGirlfull.jpg" alt="BootyFull">
+            <div class="title_01">Booty Full</div>
+            <div class="comments-container"></div>
+            <textarea id="comment-text" placeholder="Schreiben Sie einen Kommentar..."></textarea>
+            <button id="submit-comment">Kommentar hinzufügen</button>
+        </div>
+
+        <div class="post-container" data-post-id="post2">
+            <h2>Mein zweiter Blog-Beitrag</h2>
+            <p>Hier ist der Inhalt des zweiten Beitrags...</p>
+            <img src="https://constructorable.github.io/katalog_03/BootyGirlfull.jpg" alt="BootyFull">
+            <div class="title_01">Booty Full</div>
+            <div class="comments-container"></div>
+            <textarea id="comment-text" placeholder="Schreiben Sie einen Kommentar..."></textarea>
+            <button id="submit-comment">Kommentar hinzufügen</button>
         </div>
     </div>
 
-    <div class="gallery">
-        <div class="uberschrift">Bilderauswahl 😋</div>
-    
-        <div class="Post_01">
-    
-            <div class="gallery-item">
-                <img src="https://constructorable.github.io/katalog_03/BootyGirl.jpg" alt="Booty Girl">
-            </div>
-    
-            <div class="title_01">Sweet Booty</div>
-    
-            <div class="select-container">
-                <select id="options1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                    <option value="foto">Foto</option>
-                    <option value="leinwand">Leinwand</option>
-                </select>
-                <select id="size1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                    <option value="10x15">10x15 cm</option>
-                    <option value="13x18">13x18 cm</option>
-                </select>
-                <select id="laminate1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                    <option value="laminiert">Laminiert</option>
-                    <option value="nicht-laminiert">Nicht laminiert</option>
-                </select>
-            </div>
-        </div>
-    
-    
-        <div class="Post_01">
-            <div class="gallery-item">
-                <!-- Unscharfes Bild -->
-                <img src="https://constructorable.github.io/katalog_03/BootyGirlfull.jpg" alt="Booty Girl" class="blurred" id="password-protected">
-            </div>
-            <div class="title_01">Red Dessous Desire</div>
-    
-            <div class="select-container">
-                <select id="options1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                    <option value="foto">Foto</option>
-                    <option value="leinwand">Leinwand</option>
-                </select>
-                <select id="size1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                    <option value="10x15">10x15 cm</option>
-                    <option value="13x18">13x18 cm</option>
-                </select>
-                <select id="laminate1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                    <option value="laminiert">Laminiert</option>
-                    <option value="nicht-laminiert">Nicht laminiert</option>
-                </select>
-            </div>
-        </div>
-    
-    
-        <div class="Post_01">
-            <div class="gallery-item">
-                <img src="https://constructorable.github.io/katalog_03/whitedream.jpg" alt="Booty Girl">
-            </div>
-            <div class="title_01">White Dreams</div>
-    
-            <div class="select-container">
-                <select id="options1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                    <option value="foto">Foto</option>
-                    <option value="leinwand">Leinwand</option>
-                </select>
-                <select id="size1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                    <option value="10x15">10x15 cm</option>
-                    <option value="13x18">13x18 cm</option>
-                </select>
-                <select id="laminate1" onchange="updateImage('image1', 'options1', 'size1', 'laminate1')">
-                    <option value="laminiert">Laminiert</option>
-                    <option value="nicht-laminiert">Nicht laminiert</option>
-                </select>
-            </div>
-        </div>
-
-<!--         <div class="Post_01">
-            <div class="gallery-item">
-                <img src="https://constructorable.github.io/katalog_03/tenor.gif" alt="Booty Girl" class="blurred" id="password-protected2">
-            </div>
-            <div class="title_01">make you horny</div>
-         </div> -->
-
-    </div>
-
-    <script>
 
 
-function verifyPassword() {
-            const enteredPassword = document.getElementById('page-password').value;
-            const correctPassword = '12345';
-            if (enteredPassword === correctPassword) {
-                document.getElementById('password-overlay').style.display = 'none';
-                document.querySelector('.gallery').style.visibility = 'visible';
-                document.body.style.overflow = 'auto'; // Scrollen wieder aktivieren
-            } else {
-                alert('Falsches Passwort. Bitte versuchen Sie es erneut.');
+</body>
+
+<script type="module">
+
+// Beim Laden der Seite überprüfen, ob der Benutzername bereits im Cookie ist
+document.addEventListener('DOMContentLoaded', checkAndSetUsername);
+
+
+
+    // Funktion zum Setzen eines Cookies
+    function setCookie(name, value, days) {
+        const d = new Date();
+        d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000)); // Ablaufzeit des Cookies
+        const expires = "expires=" + d.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+    }
+
+    // Funktion zum Abrufen eines Cookies
+    function getCookie(name) {
+        const decodedCookies = decodeURIComponent(document.cookie);
+        const cookies = decodedCookies.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            let c = cookies[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name + "=") === 0) {
+                return c.substring(name.length + 1, c.length);
             }
         }
+        return "";
+    }
 
-
-
-
-        async function getBase64Image(url) {
-    return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.crossOrigin = "Anonymous";
-        img.onload = () => {
-            const canvas = document.createElement("canvas");
-            canvas.width = img.width;
-            canvas.height = img.height;
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0);
-            resolve(canvas.toDataURL("image/jpeg")); // Base64-String
-        };
-        img.onerror = () => reject(new Error("Bild konnte nicht geladen werden."));
-        img.src = url;
-    });
-}
-
-
-
-async function generatePDF() {
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF();
-    let yPosition = 10; // Startposition
-
-    pdf.setFontSize(16);
-    pdf.text("Bestellbestätigung", 10, yPosition);
-    yPosition += 10;
-
-    const posts = document.querySelectorAll(".Post_01");
-
-    for (let index = 0; index < posts.length; index++) {
-        const post = posts[index];
-        const title = post.querySelector(".title_01").textContent;
-        const imageUrl = post.querySelector("img").src;
-        const option = post.querySelector(`#options1`).value;
-        const size = post.querySelector(`#size1`).value;
-        const laminate = post.querySelector(`#laminate1`).value;
-
-        pdf.setFontSize(14);
-        pdf.text(`Bild ${index + 1}: ${title}`, 10, yPosition);
-        yPosition += 10;
-
-        pdf.setFontSize(12);
-        pdf.text(`- Option: ${option}`, 10, yPosition);
-        yPosition += 7;
-        pdf.text(`- Größe: ${size}`, 10, yPosition);
-        yPosition += 7;
-        pdf.text(`- Laminierung: ${laminate}`, 10, yPosition);
-        yPosition += 10;
-
-        // Base64-Bild laden und hinzufügen
-        try {
-            const base64Image = await getBase64Image(imageUrl);
-            pdf.addImage(base64Image, "JPEG", 10, yPosition, 50, 50);
-            yPosition += 60;
-        } catch (error) {
-            console.error("Fehler beim Laden des Bildes:", error);
-            pdf.setFontSize(10);
-            pdf.text("Bild konnte nicht geladen werden.", 10, yPosition);
-            yPosition += 20;
-        }
-
-        if (yPosition > 260) {
-            pdf.addPage();
-            yPosition = 10;
+    // Funktion zum Überprüfen, ob der Benutzername im Cookie existiert
+    function checkAndSetUsername() {
+        const username = getCookie('username');
+        if (username) {
+            // Wenn der Name bereits im Cookie gespeichert ist, den Namen automatisch einfügen
+            document.getElementById('username').value = username;
+        } else {
+            // Wenn der Name noch nicht gesetzt wurde, nach dem Namen fragen
+            document.getElementById('username').focus();
         }
     }
 
-    pdf.save("Bestellbestätigung.pdf");
-}
 
 
 
-    
-    </script>
-</body>
+
+
+    // Firebase-Dienste importieren
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+    const firebaseConfig = {
+
+        apiKey: "AIzaSyBolS5VlHPmiGkYPw_Xayywsur0fH9P1Sg",
+        authDomain: "database001-8841d.firebaseapp.com",
+        databaseURL: "https://database001-8841d-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "database001-8841d",
+        storageBucket: "database001-8841d.firebasestorage.app",
+        messagingSenderId: "326018053620",
+        appId: "1:326018053620:web:1fa8e15e5caf74c928b5a1",
+        measurementId: "G-R70VZK42PF"
+
+    };
+
+    // Firebase initialisieren
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    // Kommentar hinzufügen
+    document.querySelectorAll('.post-container').forEach(post => {
+        const postId = post.getAttribute('data-post-id');
+        const commentButton = post.querySelector('#submit-comment');
+        const commentText = post.querySelector('#comment-text');
+
+
+
+        // Kommentar speichern, wenn der Button geklickt wird
+        commentButton.addEventListener('click', () => {
+            const comment = commentText.value.trim();
+            let username = document.getElementById('username').value.trim();
+
+            if (comment && username) {
+                // Speichern des Namens im Cookie, damit dieser auch beim nächsten Besuch verfügbar ist
+                setCookie('username', username, 30);  // 30 Tage Gültigkeit des Cookies
+
+                // Aktuelles Datum und Uhrzeit abrufen
+                const now = new Date();
+                const timestamp = now.getFullYear() + '-' + (now.getMonth() + 1).toString().padStart(2, '0') + '-' + now.getDate().toString().padStart(2, '0') + '_' + now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0') + ':' + now.getSeconds().toString().padStart(2, '0');
+
+                // Kommentar in Firebase speichern
+                const commentsRef = ref(database, `posts/${postId}/comments`);
+                push(commentsRef, {
+                    text: comment,
+                    username: username,  // Benutzername hinzufügen
+                    timestamp: timestamp  // Der formatierte Timestamp wird hier gespeichert
+                }).then(() => {
+                    // Kommentar löschen und Textfeld zurücksetzen
+                    commentText.value = '';
+                }).catch(error => {
+                    console.error('Fehler beim Speichern des Kommentars:', error);
+                });
+            } else {
+                alert("Bitte geben Sie sowohl einen Kommentar als auch Ihren Namen ein.");
+            }
+        });
+
+
+
+        // Kommentare aus der Datenbank abrufen und anzeigen
+        const commentsRef = ref(database, `posts/${postId}/comments`);
+        const commentsContainer = post.querySelector('.comments-container');
+
+        onChildAdded(commentsRef, (snapshot) => {
+            const commentData = snapshot.val();
+            const commentDiv = document.createElement('div');
+            commentDiv.classList.add('comment');
+            commentDiv.textContent = commentData.text;
+            commentsContainer.appendChild(commentDiv);
+        });
+    });
+</script>
+
 </html>
