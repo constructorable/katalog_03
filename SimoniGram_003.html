@@ -11,6 +11,13 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
+            background: #373737;
+            color: #fff;
+        }
+
+
+        .head {
+            text-align: center;
         }
 
         .post-container {
@@ -18,7 +25,7 @@
             margin: 0 auto;
             border: 1px solid #ccc;
             padding: 20px;
-            background-color: #f9f9f9;
+            background-color: #282525;
         }
 
         .comments-container {
@@ -29,15 +36,18 @@
             padding: 10px;
             border-bottom: 1px solid #ddd;
             margin-bottom: 10px;
-            background-color: #e9f7fc;
+            background-color: #151515;
         }
 
+
         textarea {
-            width: 100%;
+            width: 95%;
             padding: 10px;
             margin-top: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            background: #393939;
+            color: #fff;
         }
 
         button {
@@ -53,32 +63,89 @@
         button:hover {
             background-color: #218838;
         }
+
+        .pic {
+            border-radius: 3px;
+
+        }
+
+        .pic {
+            display: flex;
+            justify-content: center;
+            /* Bild horizontal zentrieren */
+            align-items: center;
+            /* Bild vertikal zentrieren */
+            width: 100%;
+            /* Sicherstellen, dass der Container die volle Breite des übergeordneten Containers einnimmt */
+            max-width: 800px;
+            /* Maximale Breite für das Bild setzen */
+            margin-bottom: 20px;
+            /* Abstand unter dem Bild */
+        }
+
+        /* Bild innerhalb des Containers */
+        .pic img {
+            max-width: 100%;
+            /* Bild maximal auf die Breite des Containers anpassen */
+            height: auto;
+            /* Höhe des Bildes wird automatisch skaliert */
+            display: block;
+            /* Verhindert, dass das Bild unter anderen Texten umbricht */
+        }
+
+        #username {
+            padding: 15px;
+            margin: 11px;
+            font-size: 18px;
+            text-align: center;
+            background: #464646;
+            color: #bfbfbf;
+            border: none;
+            border-radius: 5px;
+        }
     </style>
 </head>
 
 <body>
-    <h2>SimoniGram</h2>
-    <input type="text" id="username" placeholder="Ihr Name" />
 
-    <div id="posts-container">
-        <div class="post-container" data-post-id="post1">
-            <h2>Mein erster Blog-Beitrag</h2>
-            <p>Hier ist der Inhalt des ersten Beitrags...</p>
-            <img src="https://constructorable.github.io/katalog_03/BootyGirlfull.jpg" alt="BootyFull">
-            <div class="title_01">Booty Full</div>
-            <div class="comments-container"></div>
-            <textarea id="comment-text" placeholder="Schreiben Sie einen Kommentar..."></textarea>
-            <button id="submit-comment">Kommentar hinzufügen</button>
-        </div>
+    <div class="head">
+        <h2>SimoniGram</h2>dein Spitzname
+        <input type="text" id="username" placeholder="Ihr Name" />
+    </div>
 
-        <div class="post-container" data-post-id="post2">
-            <h2>Mein zweiter Blog-Beitrag</h2>
-            <p>Hier ist der Inhalt des zweiten Beitrags...</p>
-            <img src="https://constructorable.github.io/katalog_03/BootyGirlfull.jpg" alt="BootyFull">
-            <div class="title_01">Booty Full</div>
-            <div class="comments-container"></div>
-            <textarea id="comment-text" placeholder="Schreiben Sie einen Kommentar..."></textarea>
-            <button id="submit-comment">Kommentar hinzufügen</button>
+    <div class="postsroot">
+        <div id="posts-container">
+            <div class="post-container" data-post-id="post1">
+                <h2>Booty Full</h2>
+                <div class="pic"><img src="https://constructorable.github.io/katalog_03/BootyGirl.jpg" alt="BootyFull">
+                </div>
+                <textarea id="comment-text" placeholder="Schreibe einen Kommentar..."></textarea>
+                <button id="submit-comment">Kommentar hinzufügen</button>
+                <div class="comments-container"></div>
+
+            </div>
+
+            <div class="post-container" data-post-id="post2">
+                <h2>Ass like this</h2>
+                <div class="pic"><img src="https://constructorable.github.io/katalog_03/BootyGirlfull.jpg" alt="BootyFull">
+                </div>
+                <textarea id="comment-text" placeholder="Schreibe einen Kommentar..."></textarea>
+                <button id="submit-comment">Kommentar hinzufügen</button>
+                <div class="comments-container"></div>
+
+            </div>
+
+            <div class="post-container" data-post-id="post3">
+                <h2>Mek me cum</h2>
+                <div class="pic"><img src="https://constructorable.github.io/katalog_03/tenor.gif" alt="BootyFull">
+                </div>
+                <textarea id="comment-text" placeholder="Schreibe einen Kommentar..."></textarea>
+                <button id="submit-comment">Kommentar hinzufügen</button>
+                <div class="comments-container"></div>
+
+            </div>
+
+
         </div>
     </div>
 
@@ -88,8 +155,8 @@
 
 <script type="module">
 
-// Beim Laden der Seite überprüfen, ob der Benutzername bereits im Cookie ist
-document.addEventListener('DOMContentLoaded', checkAndSetUsername);
+    // Beim Laden der Seite überprüfen, ob der Benutzername bereits im Cookie ist
+    document.addEventListener('DOMContentLoaded', checkAndSetUsername);
 
 
 
