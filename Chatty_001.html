@@ -149,37 +149,55 @@
         const messageInput = document.getElementById("messageInput");
         const sendMessageButton = document.getElementById("sendMessage");
 
-        // Nachricht senden
-        sendMessageButton.addEventListener("click", () => {
-            const message = messageInput.value.trim();
+// Nachricht senden
+sendMessageButton.addEventListener("click", () => {
+    const message = messageInput.value.trim();
+    const username = localStorage.getItem('username');  // Benutzername aus dem lokalen Speicher abrufen
 
-            if (message) {
-                push(chatRef, {
-                    text: message,
-                    username: username,
-                    timestamp: new Date().toISOString()
-                });
-                messageInput.value = ""; // Eingabefeld leeren
-            } else {
-                alert("Nachricht darf nicht leer sein.");
-            }
+    if (message && username) {
+        push(chatRef, {
+            text: message,
+            username: username,
+            timestamp: new Date().toISOString()
         });
+        messageInput.value = ""; // Eingabefeld leeren
+    } else {
+        alert("Nachricht und Benutzername erforderlich.");
+    }
+});
 
-        // Nachrichten empfangen und anzeigen
-        onChildAdded(chatRef, (snapshot) => {
-            const data = snapshot.val();
-            const messageDiv = document.createElement("div");
-            messageDiv.classList.add("message");
+// Nachrichten empfangen und anzeigen
+onChildAdded(chatRef, (snapshot) => {
+    const data = snapshot.val();
+    const messageDiv = document.createElement("div");
+    messageDiv.classList.add("message");
 
-            const time = new Date(data.timestamp).toLocaleTimeString("de-DE", {
-                hour: "2-digit",
-                minute: "2-digit"
-            });
+    const time = new Date(data.timestamp).toLocaleTimeString("de-DE", {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
 
-            messageDiv.innerHTML = `<span>${data.username} (${time}):</span> ${data.text}`;
-            messagesDiv.appendChild(messageDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Automatisches Scrollen
-        });
+    messageDiv.innerHTML = `<span>${data.username} (${time}):</span> ${data.text}`;
+    messagesDiv.appendChild(messageDiv);
+
+    // Scrollen zum letzten Eintrag, nachdem die Nachricht hinzugefügt wurde
+    scrollToBottom();
+});
+
+// Scrollen zum letzten Eintrag
+function scrollToBottom() {
+    // Stelle sicher, dass der div mit den Nachrichten die größte Höhe hat
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+// Beim Laden der Seite sofort zum letzten Eintrag scrollen
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        scrollToBottom();
+    }, 500); // Verzögerung, damit der Inhalt vollständig geladen ist
+});
+
+
     </script>
 </body>
 
