@@ -9,21 +9,26 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             background: #2c2c2c;
             color: #fff;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            /* Vollbildhöhe */
         }
 
         .chat-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #3a3a3a;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            /* Lässt die Chat-Nachrichten den verfügbaren Raum einnehmen */
             padding: 20px;
-            border-radius: 10px;
         }
 
         .messages {
-            max-height: 300px;
+            flex-grow: 1;
+            /* Chat-Nachrichten nehmen den verfügbaren Platz ein */
             overflow-y: auto;
             margin-bottom: 20px;
             padding: 10px;
@@ -43,26 +48,49 @@
         }
 
         textarea {
-            width: calc(100% - 90px);
+            width: calc(100% - 50px);
             padding: 10px;
             border: none;
             border-radius: 5px;
             background: #555;
             color: #fff;
             margin-right: 10px;
+            box-sizing: border-box;
         }
 
-        button {
-            padding: 10px 20px;
+        .send-button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
             background: #bb8c00;
             border: none;
             color: white;
-            border-radius: 5px;
+            border-radius: 50%;
             cursor: pointer;
         }
 
-        button:hover {
+        .send-button:hover {
             background: #9a6f00;
+        }
+
+        .send-button svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        div>div:last-child {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            bottom: 0;
+            padding: 10px;
+            background: #3a3a3a;
+            border-radius: 10px;
+            z-index: 1;
         }
     </style>
 </head>
@@ -72,7 +100,13 @@
         <div class="messages" id="messages"></div>
         <div>
             <textarea id="messageInput" placeholder="Nachricht schreiben..."></textarea>
-            <button id="sendMessage">Senden</button>
+            <button id="sendMessage" class="send-button">→
+                <!-- SVG für Pfeil nach rechts -->
+                <!--                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+                    <path d="M10 17l5-5-5-5v10z" />
+                </svg> -->
+            </button>
+
         </div>
     </div>
 
@@ -97,8 +131,18 @@
         const database = getDatabase(app);
         const chatRef = ref(database, "chat");
 
-        // Benutzername abfragen
-        const username = prompt("Ihr Name:", "Benutzer") || "Anonym";
+        // Benutzername aus dem localStorage laden, falls vorhanden
+        let username = localStorage.getItem("username");
+
+        // Wenn kein Benutzername im localStorage vorhanden ist, fragen wir nach dem Namen
+        if (!username) {
+            username = prompt("Ihr Name:", "Benutzer");
+            if (username) {
+                localStorage.setItem("username", username); // Benutzernamen im localStorage speichern
+            } else {
+                username = "Anonym"; // Default-Wert, wenn kein Name eingegeben wird
+            }
+        }
 
         // DOM-Elemente
         const messagesDiv = document.getElementById("messages");
