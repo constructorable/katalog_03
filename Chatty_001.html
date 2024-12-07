@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat-App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #2c2c2c;
+            color: #fff;
+        }
+
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #3a3a3a;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .messages {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #222;
+            border-radius: 5px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            background: #444;
+        }
+
+        .message span {
+            font-weight: bold;
+        }
+
+        textarea {
+            width: calc(100% - 90px);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #555;
+            color: #fff;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #bb8c00;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #9a6f00;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chat-container">
+        <div class="messages" id="messages"></div>
+        <div>
+            <textarea id="messageInput" placeholder="Nachricht schreiben..."></textarea>
+            <button id="sendMessage">Senden</button>
+        </div>
+    </div>
+
+    <script type="module">
+        // Firebase-Dienste importieren
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+        // Firebase-Konfiguration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDpsXkabP5ZqwQKKo8TtKpVDNpkn0e0JJg",
+            authDomain: "chatty001-d105c.firebaseapp.com",
+            databaseURL: "https://chatty001-d105c-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "chatty001-d105c",
+            storageBucket: "chatty001-d105c.firebasestorage.app",
+            messagingSenderId: "819043103543",
+            appId: "1:819043103543:web:e93fadc09274a84970e0b2"
+        };
+
+        // Firebase initialisieren
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const chatRef = ref(database, "chat");
+
+        // Benutzername abfragen
+        const username = prompt("Ihr Name:", "Benutzer") || "Anonym";
+
+        // DOM-Elemente
+        const messagesDiv = document.getElementById("messages");
+        const messageInput = document.getElementById("messageInput");
+        const sendMessageButton = document.getElementById("sendMessage");
+
+        // Nachricht senden
+        sendMessageButton.addEventListener("click", () => {
+            const message = messageInput.value.trim();
+
+            if (message) {
+                push(chatRef, {
+                    text: message,
+                    username: username,
+                    timestamp: new Date().toISOString()
+                });
+                messageInput.value = ""; // Eingabefeld leeren
+            } else {
+                alert("Nachricht darf nicht leer sein.");
+            }
+        });
+
+        // Nachrichten empfangen und anzeigen
+        onChildAdded(chatRef, (snapshot) => {
+            const data = snapshot.val();
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("message");
+
+            const time = new Date(data.timestamp).toLocaleTimeString("de-DE", {
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+
+            messageDiv.innerHTML = `<span>${data.username} (${time}):</span> ${data.text}`;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight; // Automatisches Scrollen
+        });
+    </script>
+</body>
+
+</html>
