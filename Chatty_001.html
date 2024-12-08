@@ -41,6 +41,7 @@
             padding: 10px;
             border-radius: 5px;
             background: #444;
+            font-size: 20px;
         }
 
         .message span {
@@ -56,6 +57,7 @@
             color: #fff;
             margin-right: 10px;
             box-sizing: border-box;
+            font-size: 22px;
         }
 
         .send-button {
@@ -70,7 +72,7 @@
             border-radius: 50%;
             cursor: pointer;
             font-size: 22px;
-  font-weight: 800;
+            font-weight: 800;
         }
 
         .send-button:hover {
@@ -94,19 +96,59 @@
             border-radius: 10px;
             z-index: 1;
         }
+
+        .nick {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 10px;
+            /* Optional, um Abstand nach oben zu schaffen */
+            gap: 10px;
+            /* Abstand zwischen Text und Button */
+        }
+
+        .usernameswitch {
+            font-size: 16px;
+            color: white;
+            /* Passen Sie die Farbe an Ihren Hintergrund an */
+            cursor: pointer;
+            /* Zeigt an, dass der Text klickbar ist */
+        }
+
+        .send-button2 {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            background: #000000;
+            border: none;
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .send-button2:hover {
+            background: #9a6f00;
+        }
     </style>
 </head>
 
 <body>
     <div class="chat-container">
+
+        <div class="nick">
+            <div class="usernameswitch">Nickname ändern</div>
+            <button id="changeUsername" class="send-button2" title="Benutzernamen ändern">✎</button>
+        </div>
+
         <div class="messages" id="messages"></div>
         <div>
             <textarea id="messageInput" placeholder="Nachricht schreiben..."></textarea>
-            <button id="sendMessage" class="send-button">→
-                <!-- SVG für Pfeil nach rechts -->
-                <!--                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
-                    <path d="M10 17l5-5-5-5v10z" />
-                </svg> -->
+            <button id="sendMessage" class="send-button">&#129170;
+
             </button>
 
         </div>
@@ -133,71 +175,71 @@
         const database = getDatabase(app);
         const chatRef = ref(database, "chat");
 
-        // Benutzername aus dem localStorage laden, falls vorhanden
+        // Benutzername aus dem localStorage laden oder festlegen
         let username = localStorage.getItem("username");
-
-        // Wenn kein Benutzername im localStorage vorhanden ist, fragen wir nach dem Namen
         if (!username) {
-            username = prompt("Ihr Name:", "Benutzer");
-            if (username) {
-                localStorage.setItem("username", username); // Benutzernamen im localStorage speichern
-            } else {
-                username = "Anonym"; // Default-Wert, wenn kein Name eingegeben wird
-            }
+            username = prompt("Ihr Name:", "Benutzer") || "Anonym";
+            localStorage.setItem("username", username);
         }
 
         // DOM-Elemente
         const messagesDiv = document.getElementById("messages");
         const messageInput = document.getElementById("messageInput");
         const sendMessageButton = document.getElementById("sendMessage");
+        const changeUsernameButton = document.getElementById("changeUsername");
 
-// Nachricht senden
-sendMessageButton.addEventListener("click", () => {
-    const message = messageInput.value.trim();
-    const username = localStorage.getItem('username');  // Benutzername aus dem lokalen Speicher abrufen
-
-    if (message && username) {
-        push(chatRef, {
-            text: message,
-            username: username,
-            timestamp: new Date().toISOString()
+        // Nachricht senden
+        sendMessageButton.addEventListener("click", () => {
+            const message = messageInput.value.trim();
+            if (message && username) {
+                push(chatRef, {
+                    text: message,
+                    username: username,
+                    timestamp: new Date().toISOString()
+                });
+                messageInput.value = ""; // Eingabefeld leeren
+            } else {
+                alert("Nachricht und Benutzername erforderlich.");
+            }
         });
-        messageInput.value = ""; // Eingabefeld leeren
-    } else {
-        alert("Nachricht und Benutzername erforderlich.");
-    }
-});
 
-// Nachrichten empfangen und anzeigen
-onChildAdded(chatRef, (snapshot) => {
-    const data = snapshot.val();
-    const messageDiv = document.createElement("div");
-    messageDiv.classList.add("message");
+        // Benutzernamen ändern
+        changeUsernameButton.addEventListener("click", () => {
+            const newUsername = prompt("Neuen Namen eingeben:", username);
+            if (newUsername) {
+                username = newUsername;
+                localStorage.setItem("username", username);
+                alert(`Ihr Benutzername wurde zu "${username}" geändert.`);
+            }
+        });
 
-    const time = new Date(data.timestamp).toLocaleTimeString("de-DE", {
-        hour: "2-digit",
-        minute: "2-digit"
-    });
+        // Nachrichten empfangen und anzeigen
+        onChildAdded(chatRef, (snapshot) => {
+            const data = snapshot.val();
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("message");
 
-    messageDiv.innerHTML = `<span>${data.username} (${time}):</span> ${data.text}`;
-    messagesDiv.appendChild(messageDiv);
+            const time = new Date(data.timestamp).toLocaleTimeString("de-DE", {
+                hour: "2-digit",
+                minute: "2-digit"
+            });
 
-    // Scrollen zum letzten Eintrag, nachdem die Nachricht hinzugefügt wurde
-    scrollToBottom();
-});
+            messageDiv.innerHTML = `<span>${data.username} (${time}):</span> ${data.text}`;
+            messagesDiv.appendChild(messageDiv);
 
-// Scrollen zum letzten Eintrag
-function scrollToBottom() {
-    // Stelle sicher, dass der div mit den Nachrichten die größte Höhe hat
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
+            // Scrollen zum letzten Eintrag
+            scrollToBottom();
+        });
 
-// Beim Laden der Seite sofort zum letzten Eintrag scrollen
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        scrollToBottom();
-    }, 500); // Verzögerung, damit der Inhalt vollständig geladen ist
-});
+        // Scrollen zum letzten Eintrag
+        function scrollToBottom() {
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Sofort beim Laden zum letzten Eintrag scrollen
+        window.addEventListener('load', () => {
+            setTimeout(scrollToBottom, 500);
+        });
 
 
     </script>
