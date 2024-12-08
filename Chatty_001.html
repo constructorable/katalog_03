@@ -60,14 +60,33 @@
             box-sizing: border-box;
             font-size: 22px;
             resize: none;
-            /* Manuelles Größenänderung deaktivieren */
-            overflow-y: auto;
-            /* Scrollen bei Überlauf */
+            /* Verhindert manuelles Größenändern */
+            overflow-y: scroll;
+            /* Scrollbalken immer sichtbar */
             max-height: 200px;
             /* Maximale Höhe des Textfeldes */
             transition: height 0.2s;
-            /* Weiche Übergänge bei Größenänderung */
+            /* Weiche Übergänge bei Höhenänderung */
         }
+
+        textarea::-webkit-scrollbar {
+            width: 12px;
+            /* Breite des Scrollbalkens */
+        }
+
+        textarea::-webkit-scrollbar-thumb {
+            background: #ffbf00;
+            /* Farbe des Scrollbalkens */
+            border-radius: 10px;
+            /* Abgerundete Ecken des Scrollbalkens */
+        }
+
+        textarea::-webkit-scrollbar-track {
+            background: #333;
+            /* Hintergrund des Scrolltrack */
+            border-radius: 10px;
+        }
+
 
 
         .send-button {
@@ -276,35 +295,15 @@
             setTimeout(scrollToBottom, 500);
         });
 
-
-
         // Dynamische Größenanpassung bei Eingabe
         const textarea = document.getElementById("messageInput");
+
         textarea.addEventListener("input", () => {
-            // Zurücksetzen der Höhe, damit die Größe korrekt berechnet wird
-            textarea.style.height = "auto";
-
-            // Setze die Höhe auf den tatsächlichen Inhalt
-            textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`;
+            textarea.style.height = "auto"; // Zurücksetzen der Höhe, um die korrekte Höhe zu berechnen
+            textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`; // Höhe anpassen, aber max. 200px
         });
 
-        // Verhindern, dass die Seite scrollt, wenn im Textarea gescrollt wird
-        const textarea2 = document.getElementById("messageInput");
 
-        textarea2.addEventListener("touchstart", function (e) {
-            // Verhindern des Scrollens der Seite
-            e.stopPropagation();
-        });
-
-        textarea2.addEventListener("touchmove", function (e) {
-            // Verhindern des Scrollens der Seite
-            e.stopPropagation();
-        });
-
-        textarea2.addEventListener("input", () => {
-    textarea2.style.height = "auto"; // Zurücksetzen der Höhe, um die korrekte Höhe zu berechnen
-    textarea2.style.height = `${Math.min(textarea.scrollHeight, 200)}px`; // Höhe anpassen, aber max. 200px
-});
 
 
     </script>
