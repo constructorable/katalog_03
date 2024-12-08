@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Chat-App</title>
     <style>
         body {
@@ -67,6 +68,7 @@
             transition: height 0.2s;
             /* Weiche Übergänge bei Größenänderung */
         }
+
 
         .send-button {
             display: inline-flex;
@@ -165,11 +167,12 @@
         .textfeld {
             background-color: #fc0;
         }
-
     </style>
 </head>
 
 <body>
+
+    
 
     <div class="chat-container">
 
@@ -278,11 +281,14 @@
         // Dynamische Größenanpassung bei Eingabe
         const textarea = document.getElementById("messageInput");
         textarea.addEventListener("input", () => {
-            textarea.style.height = "auto"; // Zurücksetzen, um die korrekte Höhe zu berechnen
-            textarea.style.height = `${textarea.scrollHeight}px`; // Höhe anpassen
+            // Zurücksetzen der Höhe, damit die Größe korrekt berechnet wird
+            textarea.style.height = "auto";
+
+            // Setze die Höhe auf den tatsächlichen Inhalt
+            textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`;
         });
 
-        
+
 
 
     </script>
