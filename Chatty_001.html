@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>Chat-App</title>
     <style>
         body {
@@ -172,7 +172,7 @@
 
 <body>
 
-    
+
 
     <div class="chat-container">
 
@@ -288,7 +288,23 @@
             textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`;
         });
 
+        // Verhindern, dass die Seite scrollt, wenn im Textarea gescrollt wird
+        const textarea2 = document.getElementById("messageInput");
 
+        textarea2.addEventListener("touchstart", function (e) {
+            // Verhindern des Scrollens der Seite
+            e.stopPropagation();
+        });
+
+        textarea2.addEventListener("touchmove", function (e) {
+            // Verhindern des Scrollens der Seite
+            e.stopPropagation();
+        });
+
+        textarea2.addEventListener("input", () => {
+    textarea2.style.height = "auto"; // Zurücksetzen der Höhe, um die korrekte Höhe zu berechnen
+    textarea2.style.height = `${Math.min(textarea.scrollHeight, 200)}px`; // Höhe anpassen, aber max. 200px
+});
 
 
     </script>
