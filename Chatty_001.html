@@ -58,6 +58,14 @@
             margin-right: 10px;
             box-sizing: border-box;
             font-size: 22px;
+            resize: none;
+            /* Manuelles Größenänderung deaktivieren */
+            overflow-y: auto;
+            /* Scrollen bei Überlauf */
+            max-height: 200px;
+            /* Maximale Höhe des Textfeldes */
+            transition: height 0.2s;
+            /* Weiche Übergänge bei Größenänderung */
         }
 
         .send-button {
@@ -66,8 +74,7 @@
             align-items: center;
             width: 40px;
             height: 40px;
-            background: #ffbf00
-            border: none;
+            background: #ffbf00 border: none;
             color: white;
             border-radius: 50%;
             cursor: pointer;
@@ -75,15 +82,12 @@
             font-weight: 800;
         }
 
-        .send-button:hover {
-            background: #9a6f00;
-        }
 
-        .send-button svg {
+        /*        .send-button svg {
             width: 20px;
             height: 20px;
             fill: white;
-        }
+        } */
 
         div>div:last-child {
             display: flex;
@@ -135,27 +139,32 @@
         }
 
         .send-button {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  background: #ffbf00;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-}
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: #ffbf00;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
 
-.send-button::before {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-  border-left: 12px solid black; /* Pfeil-Farbe */
-}
+        .send-button::before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 12px solid black;
+            /* Pfeil-Farbe */
+        }
+
+        .textfeld {
+            background-color: #fc0;
+        }
 
     </style>
 </head>
@@ -169,11 +178,9 @@
         </div>
 
         <div class="messages" id="messages"></div>
-        <div>
+        <div class="textfeld">
             <textarea id="messageInput" placeholder="Nachricht schreiben..."></textarea>
-            <button id="sendMessage" class="send-button">&#129170;
-
-            </button>
+            <button id="sendMessage" class="send-button">&#129170;</button>
 
         </div>
     </div>
@@ -264,6 +271,16 @@
         window.addEventListener('load', () => {
             setTimeout(scrollToBottom, 500);
         });
+
+
+
+        // Dynamische Größenanpassung bei Eingabe
+        const textarea = document.getElementById("messageInput");
+        textarea.addEventListener("input", () => {
+            textarea.style.height = "auto"; // Zurücksetzen, um die korrekte Höhe zu berechnen
+            textarea.style.height = `${textarea.scrollHeight}px`; // Höhe anpassen
+        });
+
 
 
     </script>
