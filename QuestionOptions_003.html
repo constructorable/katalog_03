@@ -4,219 +4,405 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Chat-App</title>
+    <title>Config your Dreams</title>
     <style>
+        /* Grundlegende Layout- und Schriftarten-Einstellungen */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            /* Dunkler Hintergrund */
+            color: #bbb;
+            /* Helles Textfarbe */
             margin: 0;
             padding: 0;
-            background: #2c2c2c;
-            color: #fff;
             display: flex;
-            flex-direction: column;
-            height: 100vh;
-            /* Vollbildhöhe */
-        }
-
-        .chat-container {
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            padding: 20px;
-            display: none;
-            /* Startet versteckt */
-        }
-
-        .messages {
-            flex-grow: 1;
-            /* Chat-Nachrichten nehmen den verfügbaren Platz ein */
-            overflow-y: auto;
-            margin-bottom: 20px;
-            padding: 10px;
-            background: #222;
-            border-radius: 5px;
-        }
-
-        .message {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            background: #444;
-            font-size: 20px;
-        }
-
-        .message span {
-            font-weight: bold;
-        }
-
-        textarea {
-            width: calc(100% - 50px);
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background: #555;
-            color: #fff;
-            margin-right: 10px;
-            box-sizing: border-box;
-            font-size: 22px;
-            resize: none;
-            /* Verhindert manuelles Größenändern */
-            overflow-y: scroll;
-            /* Scrollbalken immer sichtbar */
-            max-height: 200px;
-            /* Maximale Höhe des Textfeldes */
-            transition: height 0.2s;
-            /* Weiche Übergänge bei Höhenänderung */
-        }
-
-        textarea::-webkit-scrollbar {
-            width: 12px;
-            /* Breite des Scrollbalkens */
-        }
-
-        textarea::-webkit-scrollbar-thumb {
-            background: #ffbf00;
-            /* Farbe des Scrollbalkens */
-            border-radius: 10px;
-            /* Abgerundete Ecken des Scrollbalkens */
-        }
-
-        textarea::-webkit-scrollbar-track {
-            background: #333;
-            /* Hintergrund des Scrolltrack */
-            border-radius: 10px;
-        }
-
-
-
-        .send-button {
-            display: inline-flex;
             justify-content: center;
             align-items: center;
-            width: 40px;
-            height: 40px;
-            background: #ffbf00;
-            border: none;
-            color: white;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 22px;
-            font-weight: 800;
+            height: 100vh;
+
         }
 
-
-
-
-
-
-
-        div>div:last-child {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            bottom: 0;
-            padding: 10px;
-            background: #2c2c2c;
-            border-radius: 10px;
+        .welcome-modal {
+            display: block;
+            /* Modal ist anfangs sichtbar */
+            position: fixed;
             z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            /* Dunkler Hintergrund für den Willkommensbildschirm */
+            text-align: center;
         }
 
-        .nick {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            margin-top: 10px;
-            /* Optional, um Abstand nach oben zu schaffen */
-            gap: 10px;
-            /* Abstand zwischen Text und Button */
+        .welcome-modal-content {
+            background-color: #444;
+            margin: 20% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            color: #bbb;
+            border-radius: 8px;
         }
 
-        .usernameswitch {
-            font-size: 16px;
-            color: white;
-            /* Passen Sie die Farbe an Ihren Hintergrund an */
-            cursor: pointer;
-            /* Zeigt an, dass der Text klickbar ist */
+        .welcome-modal-content h2 {
+            margin-bottom: 20px;
         }
 
-        .send-button2 {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 30px;
-            height: 30px;
-            background: #000000;
-            border: none;
-            color: white;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .send-button2:hover {
-            background: #9a6f00;
-        }
-
-        .send-button {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            background: #ffbf00;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .send-button::before {
-            content: "";
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-top: 8px solid transparent;
-            border-bottom: 8px solid transparent;
-            border-left: 12px solid black;
-            /* Pfeil-Farbe */
-        }
-
-        .textfeld {
-            background-color: #fc0;
-        }
-
-        .password-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #2c2c2c;
-            color: #fff;
-            font-size: 18px;
-            flex-direction: column;
-        }
-
-        .password-input {
-            padding: 10px;
-            font-size: 18px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            background: #555;
-            color: white;
-        }
-
-        .password-button {
+        .welcome-modal-content button {
+            background-color: #ffbf00;
             padding: 10px 20px;
-            background: #ffbf00;
             border: none;
-            border-radius: 5px;
-            color: white;
+            border-radius: 6px;
+            color: #242424;
+            cursor: pointer;
+        }
+
+        .welcome-modal-content button:hover {
+            background-color: #ff6600;
+        }
+
+        /* Hauptcontainer (Produktkonfigurator) */
+        .container {
+            display: none;
+            /* Der Container ist anfangs unsichtbar */
+            width: 350px;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: rgba(30, 30, 30, 0.8);
+            /* Dunkler Container-Hintergrund mit Transparenz */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Weicher Schatten */
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ffa500;
+            /* Akzentfarbe für den Titel */
+        }
+
+        /* Label-Styling */
+        label {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #bbb;
+            margin-top: 50px;
+            /* Helle Textfarbe für Labels */
+        }
+
+        /* Dropdown-Menüs */
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #444;
+            /* Dunkler Rand für das Dropdown */
+            border-radius: 6px;
+            background-color: #333;
+            /* Dunkler Hintergrund für Dropdowns */
+            color: #bbb;
+            /* Weiße Schrift für Dropdown-Optionen */
+            font-size: 16px;
+            margin-bottom: 44px;
+        }
+
+        #configuratorForm {
+            margin-top: 50px;
+        }
+
+
+        /* Option-Werte */
+        option {
+            background-color: #121212;
+            /* Dunkler Hintergrund für Optionen */
+            color: #bbb;
+            /* Helle Textfarbe für Optionen */
+        }
+
+        /* Button-Styling */
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ffbf00;
+            /* Akzentfarbe für den Button */
+            color: #242424;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 70px;
+        }
+
+        button:hover {
+            background-color: #ffbf00;
+            /* Etwas dunkler bei Hover */
+        }
+
+        button:active {
+            background-color: #ffbf00;
+            /* Noch dunkler bei Klick */
+        }
+
+        /* Fehler- oder Hinweis-Styles */
+        .error-message {
+            color: #ffbf00;
+            /* Rote Textfarbe für Fehler */
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        /* Responsives Design: Verkleinern der Containergröße auf kleineren Bildschirmen */
+        @media (max-width: 480px) {
+            .container {
+                width: 100%;
+                /* Container nimmt 100% der Bildschirmbreite ein */
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 20px;
+                /* Kleinere Schrift für den Titel */
+            }
+
+            select,
+            button {
+                font-size: 14px;
+                /* Kleinere Schrift für Dropdowns und Buttons */
+                padding: 10px;
+            }
+        }
+
+        /* Modal (Popup) Styling */
+        .modal {
+            display: none;
+            /* Modal ist standardmäßig versteckt */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            /* Hintergrund wird leicht dunkel */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Durchsichtiges Schwarz */
+        }
+
+        .modal-content {
+            background-color: #333;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            color: #bbb;
+            border-radius: 8px;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 10px;
+        }
+
+        .modal-content button {
+            background-color: #ffbf00;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            color: #242424;
+            cursor: pointer;
+        }
+
+        .modal-content button:hover {
+            background-color: #ff6600;
+        }
+
+        input::placeholder,
+        select::placeholder {
+            text-align: center;
+            /* Horizontal zentrieren */
+            vertical-align: middle;
+            /* Vertikal zentrieren */
+        }
+
+        /* Input-Elemente an sich */
+        input,
+        select {
+            text-align: center;
+            /* Text (inklusive Platzhalter) horizontal zentrieren */
+            padding: 12px;
+            /* Padding für die vertikale Zentrierung */
+            height: 40px;
+            /* Feste Höhe für Input */
+        }
+
+        /* Für bessere vertikale Zentrierung auch innerhalb des Input- oder Select-Elements */
+        input::placeholder {
+            line-height: normal;
+            /* Für eine gleichmäßige vertikale Ausrichtung */
+        }
+
+        select::placeholder {
+            line-height: normal;
+            /* Gleiches für das Select */
+        }
+
+        /* Medienabfrage für Smartphones und mobile Geräte */
+        @media (max-width: 768px) {
+
+            input,
+            select {
+                font-size: 20px;
+                /* Größere Schrift für mobile Geräte */
+                padding: 16px;
+                /* Mehr Padding für bessere Benutzerinteraktion */
+            }
+
+            /* Select Boxen und Buttons größer machen */
+            select,
+            input[type="submit"],
+            button {
+                padding: 16px;
+                font-size: 18px;
+            }
+
+            /* Button-Design für Mobilgeräte */
+            button {
+                width: 100%;
+                /* Volle Breite des Containers */
+                padding: 16px;
+                font-size: 18px;
+                cursor: pointer;
+                background-color: #ffbf00;
+                color: #bbb;
+                border: none;
+                border-radius: 4px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+            /* Die Dropdown-Pfeile für Select anpassen */
+            select::after {
+                content: '▼';
+                /* Größerer Pfeil */
+                font-size: 22px;
+            }
+
+            label {
+
+                font-size: 26px;
+
+            }
+        }
+
+        /* Medienabfrage für sehr kleine Geräte wie Handys */
+        @media (max-width: 480px) {
+
+            input,
+            select {
+                font-size: 22px;
+                /* Noch größere Schrift für kleinere Bildschirme */
+                padding: 20px;
+                /* Mehr Padding für Touchscreen-Geräte */
+            }
+
+            /* Button noch größer auf sehr kleinen Geräten */
+            button {
+                font-size: 20px;
+                padding: 18px;
+            }
+
+            label {
+                font-size: 26px;
+            }
+        }
+
+
+        /* Basisstile für Input-Elemente */
+        input,
+        select {
+            padding: 12px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 4px;
+            box-sizing: border-box;
+            text-align: center;
+            /* Horizontal zentrieren */
+            height: 50px;
+            /* Höhe für Input-Felder setzen */
+        }
+
+        /* Vertikale und horizontale Zentrierung des Platzhalters */
+        input::placeholder {
+            text-align: center;
+            /* Horizontal zentrieren */
+            line-height: normal;
+            /* Um den Text vertikal zu zentrieren */
+        }
+
+        /* Spezielle Stile für Select-Optionen */
+        select {
+            background-color: #262323;
             font-size: 18px;
             cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding-right: 40px;
+            height: 50px;
+            /* Gleiche Höhe wie bei input */
+            text-align: center;
+        }
+
+        #kommentar {
+            background-color: #262323;
+            color: #bbb;
+        }
+
+        /* Select Boxen und Buttons für mobile Geräte */
+        @media (max-width: 768px) {
+
+            input,
+            select {
+                font-size: 16px;
+                /* Größere Schrift */
+                padding: 12px;
+                /* Mehr Padding */
+            }
+
+            button {
+                width: 100%;
+                padding: 16px;
+                font-size: 18px;
+            }
+        }
+
+        /* Medienabfrage für kleinere Geräte */
+        @media (max-width: 480px) {
+
+            input,
+            select {
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            button {
+                font-size: 20px;
+                padding: 18px;
+            }
         }
     </style>
 </head>
@@ -224,212 +410,165 @@
 <body>
 
 
-
-    <!-- Passwort-Abfrage -->
-    <div class="password-container" id="passwordContainer">
-        <h2>Bitte Passwort eingeben</h2>
-        <input type="password" id="passwordInput" class="password-input" placeholder="Passwort" />
-        <button class="password-button" id="passwordButton">Einloggen</button>
+    <div id="welcomeModal" class="welcome-modal">
+        <div class="welcome-modal-content">
+            <h2>Fingerspitzengefühl 😋</h2>
+            <p>stell dir vor es gibt einen weiteren "lockeren" Abend. Welche Auswahl würdest du treffen, damit du noch
+                "lockerer und offener" wirst? 😋</p>
+            <button id="closeWelcomeModalBtn">Los geht's!</button>
+        </div>
     </div>
 
-    <!-- Chat-Container, anfangs unsichtbar -->
-    <div class="chat-container" id="chatContainer">
+    <div id="configuratorContainer" class="container">
 
-        <div class="nick">
-            <div class="usernameswitch">Nickname ändern</div>
-            <button id="changeUsername" class="send-button2" title="Benutzernamen ändern">✎</button>
+
+
+
+        <h1>let's play 😋</h1>
+        <p>mit den Fingern werden dein P*loch schön gedeht 😋</p>
+        <form id="configuratorForm">
+            <!-- Dropdowns -->
+
+            <label for="auswahl01">Eine oder zwei Hände:</label>
+            <select id="auswahl01" name="auswahl01" required>
+                <option value="" disabled selected>Bitte wählen...</option>
+                <option value="eine Hand">eine Hand</option>
+                <option value="zwei Hände">zwei Hände</option>
+            </select>
+
+            <label for="auswahl02">Anzahl der Finger:</label>
+            <select id="auswahl02" name="auswahl02" required>
+                <option value="" disabled selected>Bitte wählen...</option>
+                <option value="2 Finger (je Hand)">2 Finger (je Hand)</option>
+                <option value="3 Finger (je Hand)">3 Finger (je Hand)</option>
+                <option value="4 Finger (je Hand)">4 Finger (je Hand)</option>
+            </select>
+
+            <!--             <label for="auswahl03">dicke:</label>
+            <select id="auswahl03" name="auswahl02" required>
+                <option value="" disabled selected>Bitte wählen...</option>
+                <option value="1cm">1cm</option>
+                <option value="2cm">2cm</option>
+                <option value="3cm">3cm</option>
+            </select> -->
+
+            <div class="input-container">
+                <label for="kommentar">Kommentar (optional)</label>
+                <input type="text" id="kommentar" placeholder="gebe etwas ein...">
+            </div>
+
+            <button type="submit">Absenden</button>
+        </form>
+
+        <div id="successModal" class="modal">
+            <div class="modal-content">
+                <h2>Uhhh, deine Auswahl ist wie immer heiß!!! 🔥</h2>
+                <p>Das gibt einen wunderbaren "Einblick" 😉</p>
+                <button id="closeModalBtn">Schließen</button>
+            </div>
         </div>
 
-        <div class="messages" id="messages"></div>
-        <div class="textfeld">
-            <textarea id="messageInput" placeholder="Nachricht schreiben..."></textarea>
-            <button id="sendMessage" class="send-button">&#129170;</button>
-
-        </div>
     </div>
 
     <script type="module">
-        // Firebase-Dienste importieren
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-        import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
 
-        // Firebase-Konfiguration
         const firebaseConfig = {
-            apiKey: "AIzaSyDpsXkabP5ZqwQKKo8TtKpVDNpkn0e0JJg",
-            authDomain: "chatty001-d105c.firebaseapp.com",
-            databaseURL: "https://chatty001-d105c-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "chatty001-d105c",
-            storageBucket: "chatty001-d105c.firebasestorage.app",
-            messagingSenderId: "819043103543",
-            appId: "1:819043103543:web:e93fadc09274a84970e0b2"
+
+            apiKey: "AIzaSyCxuvtVZokIclZNV5q2sfuJj3hzI34vG-8",
+            authDomain: "databaseoption01.firebaseapp.com",
+            databaseURL: "https://databaseoption01-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "databaseoption01",
+            storageBucket: "databaseoption01.firebasestorage.app",
+            messagingSenderId: "18397762779",
+            appId: "1:18397762779:web:99d3a6ab0104864eeee8fe"
         };
 
-        // Firebase initialisieren
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
-        const chatRef = ref(database, "chat");
 
-        // Benutzername aus dem localStorage laden oder festlegen
-        let username = localStorage.getItem("username") || "Anonymer Besucher";
-        if (!username) {
-            username = prompt("Ihr Name:", "Benutzer") || "Anonym";
-            localStorage.setItem("username", username);
+        // Willkommensbildschirm schließen
+        const closeWelcomeModalBtn = document.getElementById('closeWelcomeModalBtn');
+        const welcomeModal = document.getElementById('welcomeModal');
+        const configuratorContainer = document.getElementById('configuratorContainer');
+
+        closeWelcomeModalBtn.addEventListener('click', () => {
+            welcomeModal.style.display = 'none';
+            configuratorContainer.style.display = 'block'; // Zeige den Hauptcontainer, wenn das Willkommensmodal geschlossen wird
+        });
+
+        // Funktion zum Erzeugen des Timestamp im Format YYYY-MM-DD_HH:MM:SS
+        function getFormattedTimestamp() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            return `${year}-${month}-${day}_${hours}:${minutes}:${seconds}`;
         }
 
-        // Nachricht beim Laden der Seite senden
-        // Nachricht beim Laden der Seite senden
-        // Cookie-Wert auslesen
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) {
-                return parts.pop().split(';').shift();
-            }
-            return null;
-        }
+        // Formularabsendefunktion
+        const form = document.getElementById("configuratorForm");
 
-        // Nachricht beim Laden der Seite senden
-        async function sendVisitMessage() {
-            const timestamp = new Date().toISOString();
-            let ipAddress = "Unbekannt";
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault(); // Verhindert das Standard-Formularverhalten
 
-            // IP-Adresse abrufen
+            // Werte aus den Dropdowns abrufen
+            const auswahl01 = document.getElementById("auswahl01").value;
+            const auswahl02 = document.getElementById("auswahl02").value;
+            /*             const auswahl03 = document.getElementById("auswahl03").value; */
+            const kommentar = document.getElementById("kommentar").value;
+
+
+            // Überprüfen, ob alle Werte ausgewählt wurden
+            /*             if (!auswahl01 || !auswahl02) {
+                            alert("Bitte alle Optionen auswählen!");
+                            return;
+                        } */
+
+            // Erzeugen des Timestamp
+            const timestamp = getFormattedTimestamp();
+
+            // Daten an Firebase senden
             try {
-                const response = await fetch("https://api.ipify.org?format=json");
-                const data = await response.json();
-                ipAddress = data.ip;
-            } catch (error) {
-                console.error("IP-Adresse konnte nicht abgerufen werden:", error);
-            }
+                const refPath = `configurations/${timestamp}`; // Verwenden des formatierten Timestamps als Pfad
+                const configRef = ref(database, refPath);
 
-            // Benutzername aus Cookie lesen
-            let username = getCookie("username");
-            if (!username) {
-                username = "Unbekannter Benutzer";
-            }
-
-            // Nachricht in die Datenbank schreiben (Systemnachricht)
-            push(chatRef, {
-                text: `Ein Besucher (${username}) hat die Seite geöffnet. IP-Adresse: ${ipAddress}`,
-                username: "System",
-                isSystemMessage: true, // Kennzeichnung als Systemnachricht
-                timestamp: timestamp
-            });
-        }
-
-        // Nachricht senden, wenn die Seite geladen wird
-        window.addEventListener("load", () => {
-            sendVisitMessage();
-        });
-
-
-
-
-        // DOM-Elemente
-        const messagesDiv = document.getElementById("messages");
-        const messageInput = document.getElementById("messageInput");
-        const sendMessageButton = document.getElementById("sendMessage");
-        const changeUsernameButton = document.getElementById("changeUsername");
-
-
-        // Passwortabfrage
-        const passwordContainer = document.getElementById("passwordContainer");
-        const chatContainer = document.getElementById("chatContainer");
-        const passwordInput = document.getElementById("passwordInput");
-        const passwordButton = document.getElementById("passwordButton");
-        const correctPassword = "123";
-
-        passwordButton.addEventListener("click", () => {
-            const password = passwordInput.value;
-            if (password === correctPassword) {
-                passwordContainer.style.display = "none";  // Passwortbereich ausblenden
-                chatContainer.style.display = "flex";      // Chat anzeigen
-            } else {
-                alert("Falsches Passwort. Bitte versuchen Sie es erneut.");
-                passwordInput.value = "";  // Eingabefeld leeren
-            }
-        });
-
-        // Nachricht senden
-        sendMessageButton.addEventListener("click", () => {
-            const message = messageInput.value.trim();
-            if (message && username) {
-                push(chatRef, {
-                    text: message,
-                    username: username,
-                    timestamp: new Date().toISOString()
+                // Daten setzen
+                await set(configRef, {
+                    Auswahl01: auswahl01,
+                    Auswahl02: auswahl02,
+                    kommentar: kommentar,
+                    /* Auswahl03: auswahl03, */
+                    timestamp: timestamp // Der Timestamp wird ebenfalls gespeichert
                 });
-                messageInput.value = ""; // Eingabefeld leeren
-            } else {
-                alert("Nachricht und Benutzername erforderlich.");
+
+                // Popup anzeigen
+                successModal.style.display = "block";
+                form.reset(); // Formular zurücksetzen
+            } catch (error) {
+                console.error("Fehler beim Speichern der Daten:", error);
+                alert("Fehler beim Speichern der Daten!");
             }
         });
 
-        // Benutzernamen ändern
-        changeUsernameButton.addEventListener("click", () => {
-            const newUsername = prompt("Neuen Namen eingeben:", username);
-            if (newUsername) {
-                username = newUsername;
-                localStorage.setItem("username", username);
-                alert(`Ihr Benutzername wurde zu "${username}" geändert.`);
+        // Schließen des Popups
+        closeModalBtn.addEventListener("click", () => {
+            successModal.style.display = "none";
+        });
+
+        // Wenn der Benutzer außerhalb des Popups klickt, schließt es sich
+        window.addEventListener("click", (event) => {
+            if (event.target === successModal) {
+                successModal.style.display = "none";
             }
         });
-
-
-
-
-
-
-        // Nachrichten empfangen und anzeigen
-        onChildAdded(chatRef, (snapshot) => {
-            const data = snapshot.val();
-
-            // Systemnachrichten ignorieren
-            if (data.isSystemMessage) {
-                return; // Nachricht wird nicht angezeigt
-            }
-
-            const messageDiv = document.createElement("div");
-            messageDiv.classList.add("message");
-
-            const time = new Date(data.timestamp).toLocaleTimeString("de-DE", {
-                hour: "2-digit",
-                minute: "2-digit"
-            });
-
-            messageDiv.innerHTML = `<span>${data.username} (${time}):</span> ${data.text}`;
-            messagesDiv.appendChild(messageDiv);
-
-            // Scrollen zum letzten Eintrag
-            scrollToBottom();
-        });
-
-
-
-
-
-        // Scrollen zum letzten Eintrag
-        function scrollToBottom() {
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
-
-        // Sofort beim Laden zum letzten Eintrag scrollen
-        window.addEventListener('load', () => {
-            setTimeout(scrollToBottom, 500);
-        });
-
-        // Dynamische Größenanpassung bei Eingabe
-        const textarea = document.getElementById("messageInput");
-
-        textarea.addEventListener("input", () => {
-            textarea.style.height = "auto"; // Zurücksetzen der Höhe, um die korrekte Höhe zu berechnen
-            textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`; // Höhe anpassen, aber max. 200px
-        });
-
-
-
 
     </script>
+
 </body>
 
 </html>
