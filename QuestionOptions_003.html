@@ -22,6 +22,10 @@
 
         }
 
+        h2 {
+            margin-bottom: 50px;
+        }
+
         .welcome-modal {
             display: block;
             /* Modal ist anfangs sichtbar */
@@ -372,6 +376,10 @@
             color: #bbb;
         }
 
+        #successDetails {
+            margin-top: 50px;
+        }
+
         /* Select Boxen und Buttons für mobile Geräte */
         @media (max-width: 768px) {
 
@@ -464,6 +472,7 @@
             <div class="modal-content">
                 <h2>Uhhh, deine Auswahl ist wie immer heiß!!! 🔥</h2>
                 <p>Das gibt einen wunderbaren "Einblick" 😉</p>
+                <div id="successDetails"></div>
                 <button id="closeModalBtn">Schließen</button>
             </div>
         </div>
@@ -513,6 +522,11 @@
         // Formularabsendefunktion
         const form = document.getElementById("configuratorForm");
 
+
+
+
+
+
         form.addEventListener("submit", async (event) => {
             event.preventDefault(); // Verhindert das Standard-Formularverhalten
 
@@ -545,6 +559,14 @@
                     /* Auswahl03: auswahl03, */
                     timestamp: timestamp // Der Timestamp wird ebenfalls gespeichert
                 });
+
+                // Dynamischen Inhalt für successModal vorbereiten
+                const successDetails = document.getElementById("successDetails");
+                successDetails.innerHTML = `
+                    <p><strong>Auswahl 1:</strong> ${auswahl01}</p>
+                    <p><strong>Auswahl 2:</strong> ${auswahl02}</p>
+                    <p><strong>Kommentar:</strong> ${kommentar || "Kein Kommentar"}</p>
+                `;
 
                 // Popup anzeigen
                 successModal.style.display = "block";
