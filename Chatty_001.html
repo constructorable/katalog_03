@@ -7,7 +7,7 @@
 
     <title>Chat-App</title>
     <style>
-        body {
+ body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -186,6 +186,37 @@
         .textfeld {
             background-color: #fc0;
         }
+
+        .password-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #2c2c2c;
+            color: #fff;
+            font-size: 18px;
+            flex-direction: column;
+        }
+
+        .password-input {
+            padding: 10px;
+            font-size: 18px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #555;
+            color: white;
+        }
+
+        .password-button {
+            padding: 10px 20px;
+            background: #ffbf00;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -195,118 +226,148 @@
 
     <div class="chat-container">
 
-        <div class="nick">
-            <div class="usernameswitch">Nickname ändern</div>
-            <button id="changeUsername" class="send-button2" title="Benutzernamen ändern">✎</button>
+
+        <!-- Passwort-Abfrage -->
+        <div class="password-container" id="passwordContainer">
+            <h2>Bitte Passwort eingeben</h2>
+            <input type="password" id="passwordInput" class="password-input" placeholder="Passwort" />
+            <button class="password-button" id="passwordButton">Einloggen</button>
         </div>
 
-        <div class="messages" id="messages"></div>
-        <div class="textfeld">
-            <textarea id="messageInput" placeholder="Nachricht schreiben..."></textarea>
-            <button id="sendMessage" class="send-button">&#129170;</button>
+        <!-- Chat-Container, anfangs unsichtbar -->
+        <div class="chat-container" id="chatContainer">
 
+            <div class="nick">
+                <div class="usernameswitch">Nickname ändern</div>
+                <button id="changeUsername" class="send-button2" title="Benutzernamen ändern">✎</button>
+            </div>
+
+            <div class="messages" id="messages"></div>
+            <div class="textfeld">
+                <textarea id="messageInput" placeholder="Nachricht schreiben..."></textarea>
+                <button id="sendMessage" class="send-button">&#129170;</button>
+
+            </div>
         </div>
-    </div>
 
-    <script type="module">
-        // Firebase-Dienste importieren
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
-        import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+        <script type="module">
+            // Firebase-Dienste importieren
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+            import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
 
-        // Firebase-Konfiguration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDpsXkabP5ZqwQKKo8TtKpVDNpkn0e0JJg",
-            authDomain: "chatty001-d105c.firebaseapp.com",
-            databaseURL: "https://chatty001-d105c-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "chatty001-d105c",
-            storageBucket: "chatty001-d105c.firebasestorage.app",
-            messagingSenderId: "819043103543",
-            appId: "1:819043103543:web:e93fadc09274a84970e0b2"
-        };
+            // Firebase-Konfiguration
+            const firebaseConfig = {
+                apiKey: "AIzaSyDpsXkabP5ZqwQKKo8TtKpVDNpkn0e0JJg",
+                authDomain: "chatty001-d105c.firebaseapp.com",
+                databaseURL: "https://chatty001-d105c-default-rtdb.europe-west1.firebasedatabase.app",
+                projectId: "chatty001-d105c",
+                storageBucket: "chatty001-d105c.firebasestorage.app",
+                messagingSenderId: "819043103543",
+                appId: "1:819043103543:web:e93fadc09274a84970e0b2"
+            };
 
-        // Firebase initialisieren
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-        const chatRef = ref(database, "chat");
+            // Firebase initialisieren
+            const app = initializeApp(firebaseConfig);
+            const database = getDatabase(app);
+            const chatRef = ref(database, "chat");
 
-        // Benutzername aus dem localStorage laden oder festlegen
-        let username = localStorage.getItem("username");
-        if (!username) {
-            username = prompt("Ihr Name:", "Benutzer") || "Anonym";
-            localStorage.setItem("username", username);
-        }
-
-        // DOM-Elemente
-        const messagesDiv = document.getElementById("messages");
-        const messageInput = document.getElementById("messageInput");
-        const sendMessageButton = document.getElementById("sendMessage");
-        const changeUsernameButton = document.getElementById("changeUsername");
-
-        // Nachricht senden
-        sendMessageButton.addEventListener("click", () => {
-            const message = messageInput.value.trim();
-            if (message && username) {
-                push(chatRef, {
-                    text: message,
-                    username: username,
-                    timestamp: new Date().toISOString()
-                });
-                messageInput.value = ""; // Eingabefeld leeren
-            } else {
-                alert("Nachricht und Benutzername erforderlich.");
-            }
-        });
-
-        // Benutzernamen ändern
-        changeUsernameButton.addEventListener("click", () => {
-            const newUsername = prompt("Neuen Namen eingeben:", username);
-            if (newUsername) {
-                username = newUsername;
+            // Benutzername aus dem localStorage laden oder festlegen
+            let username = localStorage.getItem("username");
+            if (!username) {
+                username = prompt("Ihr Name:", "Benutzer") || "Anonym";
                 localStorage.setItem("username", username);
-                alert(`Ihr Benutzername wurde zu "${username}" geändert.`);
             }
-        });
 
-        // Nachrichten empfangen und anzeigen
-        onChildAdded(chatRef, (snapshot) => {
-            const data = snapshot.val();
-            const messageDiv = document.createElement("div");
-            messageDiv.classList.add("message");
+            // DOM-Elemente
+            const messagesDiv = document.getElementById("messages");
+            const messageInput = document.getElementById("messageInput");
+            const sendMessageButton = document.getElementById("sendMessage");
+            const changeUsernameButton = document.getElementById("changeUsername");
 
-            const time = new Date(data.timestamp).toLocaleTimeString("de-DE", {
-                hour: "2-digit",
-                minute: "2-digit"
+
+            // Passwortabfrage
+            const passwordContainer = document.getElementById("passwordContainer");
+            const chatContainer = document.getElementById("chatContainer");
+            const passwordInput = document.getElementById("passwordInput");
+            const passwordButton = document.getElementById("passwordButton");
+            const correctPassword = "123";
+
+            passwordButton.addEventListener("click", () => {
+                const password = passwordInput.value;
+                if (password === correctPassword) {
+                    passwordContainer.style.display = "none";  // Passwortbereich ausblenden
+                    chatContainer.style.display = "flex";      // Chat anzeigen
+                } else {
+                    alert("Falsches Passwort. Bitte versuchen Sie es erneut.");
+                    passwordInput.value = "";  // Eingabefeld leeren
+                }
             });
 
-            messageDiv.innerHTML = `<span>${data.username} (${time}):</span> ${data.text}`;
-            messagesDiv.appendChild(messageDiv);
+            // Nachricht senden
+            sendMessageButton.addEventListener("click", () => {
+                const message = messageInput.value.trim();
+                if (message && username) {
+                    push(chatRef, {
+                        text: message,
+                        username: username,
+                        timestamp: new Date().toISOString()
+                    });
+                    messageInput.value = ""; // Eingabefeld leeren
+                } else {
+                    alert("Nachricht und Benutzername erforderlich.");
+                }
+            });
+
+            // Benutzernamen ändern
+            changeUsernameButton.addEventListener("click", () => {
+                const newUsername = prompt("Neuen Namen eingeben:", username);
+                if (newUsername) {
+                    username = newUsername;
+                    localStorage.setItem("username", username);
+                    alert(`Ihr Benutzername wurde zu "${username}" geändert.`);
+                }
+            });
+
+            // Nachrichten empfangen und anzeigen
+            onChildAdded(chatRef, (snapshot) => {
+                const data = snapshot.val();
+                const messageDiv = document.createElement("div");
+                messageDiv.classList.add("message");
+
+                const time = new Date(data.timestamp).toLocaleTimeString("de-DE", {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                });
+
+                messageDiv.innerHTML = `<span>${data.username} (${time}):</span> ${data.text}`;
+                messagesDiv.appendChild(messageDiv);
+
+                // Scrollen zum letzten Eintrag
+                scrollToBottom();
+            });
 
             // Scrollen zum letzten Eintrag
-            scrollToBottom();
-        });
+            function scrollToBottom() {
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
 
-        // Scrollen zum letzten Eintrag
-        function scrollToBottom() {
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
+            // Sofort beim Laden zum letzten Eintrag scrollen
+            window.addEventListener('load', () => {
+                setTimeout(scrollToBottom, 500);
+            });
 
-        // Sofort beim Laden zum letzten Eintrag scrollen
-        window.addEventListener('load', () => {
-            setTimeout(scrollToBottom, 500);
-        });
+            // Dynamische Größenanpassung bei Eingabe
+            const textarea = document.getElementById("messageInput");
 
-        // Dynamische Größenanpassung bei Eingabe
-        const textarea = document.getElementById("messageInput");
-
-        textarea.addEventListener("input", () => {
-            textarea.style.height = "auto"; // Zurücksetzen der Höhe, um die korrekte Höhe zu berechnen
-            textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`; // Höhe anpassen, aber max. 200px
-        });
+            textarea.addEventListener("input", () => {
+                textarea.style.height = "auto"; // Zurücksetzen der Höhe, um die korrekte Höhe zu berechnen
+                textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`; // Höhe anpassen, aber max. 200px
+            });
 
 
 
 
-    </script>
+        </script>
 </body>
 
 </html>
