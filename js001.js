@@ -1,4 +1,7 @@
 // js001.js
+
+ <script type="module">
+         
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
         import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-storage.js";
@@ -136,3 +139,4 @@ function deletePost(postTitle) {
 }
 
 // Hier können zusätzliche Funktionen für Kommentare, Formulare und Validierungen hinzugefügt werden
+<script>
