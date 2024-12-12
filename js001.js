@@ -93,15 +93,34 @@ function showMessage(message) {
     alert(message);
 }
 
-// Diese Funktion leitet zur User-Seite weiter
-function redirectToUser() {
-    window.location.href = 'https://constructorable.github.io/katalog_03/user.html';
-}
+// js001.js
 
-// Diese Funktion leitet zur Admin-Seite weiter
-function redirectToAdmin() {
+document.addEventListener('DOMContentLoaded', () => {
+  // Sicherstellen, dass das DOM vollständig geladen wurde, bevor die Funktionen registriert werden.
+
+  // Diese Funktion leitet zur User-Seite weiter
+  function redirectToUser() {
+    window.location.href = 'https://constructorable.github.io/katalog_03/user.html';
+  }
+
+  // Diese Funktion leitet zur Admin-Seite weiter
+  function redirectToAdmin() {
     window.location.href = 'https://constructorable.github.io/katalog_03/admin.html';
-}
+  }
+
+  // Event Listener für die Buttons auf der main.html
+  const userButton = document.querySelector('button[onclick="redirectToUser()"]');
+  const adminButton = document.querySelector('button[onclick="redirectToAdmin()"]');
+
+  if (userButton) {
+    userButton.addEventListener('click', redirectToUser);
+  }
+
+  if (adminButton) {
+    adminButton.addEventListener('click', redirectToAdmin);
+  }
+});
+
 
 // Diese Funktion zeigt Beiträge im Admin-Bereich an
 function loadAdminPosts() {
