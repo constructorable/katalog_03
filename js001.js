@@ -6,18 +6,18 @@ import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "http
 
 // Firebase-Konfiguration
 const firebaseConfig = {
-    apiKey: "AIzaSg90", 
-    authDomain: "simomapp.com",
-    databaseURL: "https://siasedatabase.app",
-    projectId: "sim002",
-    storageBucket: "sime.app",
-    messagingSenderId: "17862",
-    appId: "1:1742d96837"
+           apiKey: "AIzaSyB3f-7rNLiqLvDJ0GZY3rkNd34oxLuAg90",
+            authDomain: "simom002.firebaseapp.com",
+            databaseURL: "https://simom002-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "simom002",
+            storageBucket: "simom002.firebasestorage.app",
+            messagingSenderId: "174254147862",
+            appId: "1:174254147862:web:3506bdbcf8a0d4d8d96837"
 };
 
-// Firebase Initialisierung
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+        const app = initializeApp(firebaseConfig);
+        const storage = getStorage(app);
+        const database = getDatabase(app);
 
 // Formular und UI-Elemente
 const postForm = document.getElementById('postForm');
