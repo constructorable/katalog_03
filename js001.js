@@ -1,4 +1,64 @@
 // js001.js
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-storage.js";
+      
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3f-7rNLiqLvDJ0GZY3rkNd34oxLuAg90",
+            authDomain: "simom002.firebaseapp.com",
+            databaseURL: "https://simom002-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "simom002",
+            storageBucket: "simom002.firebasestorage.app",
+            messagingSenderId: "174254147862",
+            appId: "1:174254147862:web:3506bdbcf8a0d4d8d96837"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const storage = getStorage(app);
+        const database = getDatabase(app);
+
+        // Formular zum Hochladen eines Beitrags
+        const postForm = document.getElementById('postForm');
+        const postText = document.getElementById('postText');
+        const statusMessage = document.getElementById('statusMessage');
+
+// Event Listener für das Formular
+    postForm.addEventListener('submit', async (event) => {
+        event.preventDefault();  // Verhindert das normale Absenden des Formulars
+
+        const text = postText.value.trim();  // Text aus dem Textarea extrahieren
+
+        if (text) {
+            try {
+                // Referenz auf den "posts"-Knoten in der Firebase-Datenbank
+                const postsRef = ref(database, 'posts');
+
+                // Einen neuen Beitrag mit push() hinzufügen
+                const newPostRef = push(postsRef);
+                
+                // Den Text und den Zeitstempel setzen
+                await set(newPostRef, {
+                    text: text,
+                    timestamp: new Date().toISOString()  // Zeitstempel für den Beitrag
+                });
+
+                // Erfolgsnachricht
+                statusMessage.style.color = 'green';
+                statusMessage.textContent = 'Beitrag erfolgreich hochgeladen!';
+                postText.value = '';  // Textfeld zurücksetzen
+
+            } catch (error) {
+                console.error("Fehler beim Hochladen des Beitrags: ", error);
+                statusMessage.style.color = 'red';
+                statusMessage.textContent = `Fehler: ${error.message}`;
+            }
+        } else {
+            statusMessage.style.color = 'red';
+            statusMessage.textContent = 'Bitte geben Sie einen Text ein!';
+        }
+    });
+
 
 // Diese Funktion leitet zur User-Seite weiter
 function redirectToUser() {
