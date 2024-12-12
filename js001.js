@@ -83,12 +83,7 @@ function loadPosts() {
   const postsContainer = document.getElementById('posts');
   postsContainer.innerHTML = '';  // Vorherige Posts löschen
 
-  // Beispiel-Daten (diese Daten können später dynamisch geladen werden)
-  const posts = [
-    { title: "Erster Beitrag", content: "Dies ist der erste Beitrag." },
-    { title: "Zweiter Beitrag", content: "Dies ist der zweite Beitrag." },
-    { title: "Dritter Beitrag", content: "Dies ist der dritte Beitrag." }
-  ];
+
 
   // Beiträge dynamisch hinzufügen
   posts.forEach(post => {
@@ -108,11 +103,7 @@ function loadAdminPosts() {
   const adminPostsContainer = document.getElementById('admin-posts');
   adminPostsContainer.innerHTML = '';  // Vorherige Beiträge löschen
 
-  // Beispiel-Daten (dies könnte später durch eine API oder Firebase ersetzt werden)
-  const adminPosts = [
-    { title: "Admin Beitrag 1", content: "Verwaltung der Beiträge." },
-    { title: "Admin Beitrag 2", content: "Admin-Features hier." }
-  ];
+
 
   // Admin Beiträge dynamisch hinzufügen
   adminPosts.forEach(post => {
