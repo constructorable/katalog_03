@@ -23,8 +23,9 @@
     <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-storage.js";
-        import { getDatabase, ref as dbRef, set, get, child, update } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+      
 
         const firebaseConfig = {
             apiKey: "AIzaSyB3f-7rNLiqLvDJ0GZY3rkNd34oxLuAg90",
@@ -45,34 +46,41 @@
         const postText = document.getElementById('postText');
         const statusMessage = document.getElementById('statusMessage');
 
-        postForm.addEventListener('submit', (event) => {
-            event.preventDefault();  // Verhindert das normale Absenden des Formulars
+// Event Listener für das Formular
+    postForm.addEventListener('submit', async (event) => {
+        event.preventDefault();  // Verhindert das normale Absenden des Formulars
 
-            const text = postText.value.trim();  // Den eingegebenen Text extrahieren
+        const text = postText.value.trim();  // Text aus dem Textarea extrahieren
 
-            if (text) {
-                // Beitrag in Firebase speichern
-                const postsRef = dbRef(database, 'posts');  // Der Knoten 'posts' in der Firebase Realtime Database
-                const newPostRef = dbRef(postsRef);  // Neuer Beitrag unter 'posts' erstellen
+        if (text) {
+            try {
+                // Referenz auf den "posts"-Knoten in der Firebase-Datenbank
+                const postsRef = ref(database, 'posts');
 
-                const postId = newPostRef.push().key;  // Generiert eine eindeutige ID für den neuen Beitrag
-
-                set(dbRef(postsRef, postId), {
+                // Einen neuen Beitrag mit push() hinzufügen
+                const newPostRef = push(postsRef);
+                
+                // Den Text und den Zeitstempel setzen
+                await set(newPostRef, {
                     text: text,
-                    timestamp: new Date().toISOString()  // Zeitstempel hinzufügen
-                }).then(() => {
-                    statusMessage.style.color = 'green';
-                    statusMessage.textContent = 'Beitrag erfolgreich hochgeladen!';
-                    postText.value = '';  // Textfeld zurücksetzen
-                }).catch((error) => {
-                    statusMessage.style.color = 'red';
-                    statusMessage.textContent = `Fehler: ${error.message}`;
+                    timestamp: new Date().toISOString()  // Zeitstempel für den Beitrag
                 });
-            } else {
+
+                // Erfolgsnachricht
+                statusMessage.style.color = 'green';
+                statusMessage.textContent = 'Beitrag erfolgreich hochgeladen!';
+                postText.value = '';  // Textfeld zurücksetzen
+
+            } catch (error) {
+                console.error("Fehler beim Hochladen des Beitrags: ", error);
                 statusMessage.style.color = 'red';
-                statusMessage.textContent = 'Bitte geben Sie einen Text ein!';
+                statusMessage.textContent = `Fehler: ${error.message}`;
             }
-        });
+        } else {
+            statusMessage.style.color = 'red';
+            statusMessage.textContent = 'Bitte geben Sie einen Text ein!';
+        }
+    });
     </script>
 
 </body>
