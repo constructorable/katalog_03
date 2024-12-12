@@ -8,8 +8,8 @@
 /* Hintergrund und Textfarbe für den gesamten Body */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #121212;
-  color: #f0f0f0;
+  background-color: #0a0a0a; /* Sehr dunkler Hintergrund für die gesamte Seite */
+  color: #e0e0e0; /* Helle Schriftfarbe für bessere Lesbarkeit */
   line-height: 1.6;
   padding: 20px;
   transition: all 0.3s ease;
@@ -49,11 +49,11 @@ button:hover {
 }
 
 .post {
-  background-color: #1f1f1f;
+  background-color: #1b1b1b; /* Sehr dunkles Grau für die Posts */
   border-radius: 10px;
   padding: 15px;
   margin-bottom: 15px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Dunklerer Schatten für den 3D-Effekt */
   transition: all 0.3s ease;
 }
 
@@ -99,10 +99,10 @@ button {
 
 /* Styling für Posts im Admin-Bereich */
 #admin-posts .post {
-  background-color: #333333;
+  background-color: #333333; /* Dunkles Grau für Admin-Posts */
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Dunkler Schatten */
 }
 
 #admin-posts .post h3 {
@@ -137,7 +137,7 @@ button:active {
 textarea {
   width: 100%;
   padding: 10px;
-  background-color: #1f1f1f;
+  background-color: #1f1f1f; /* Sehr dunkler Hintergrund für Textarea */
   color: #fff;
   border: 1px solid #333;
   border-radius: 5px;
