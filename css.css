@@ -1,42 +1,173 @@
-/* css.css */
-body {
-  font-family: Arial, sans-serif;
+/* Grundlegende Reset-Styles für eine saubere Basis */
+* {
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f4f4f4;
+  box-sizing: border-box;
+}
+
+/* Hintergrund und Textfarbe für den gesamten Body */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #121212;
+  color: #f0f0f0;
+  line-height: 1.6;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+/* Styling für den Container auf der Startseite */
+.main-container {
+  text-align: center;
+  margin-top: 50px;
 }
 
 h2 {
-  text-align: center;
-}
-
-.main-container, .post-container, .admin-container {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  text-align: center;
+  font-size: 2.5em;
+  color: #ffffff;
+  margin-bottom: 20px;
 }
 
 button {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  background-color: #4CAF50;
-  color: white;
+  background-color: #6200ea;
+  color: #fff;
   border: none;
-  border-radius: 4px;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #3700b3;
 }
 
-#posts, #admin-posts {
+/* Styling für den Container der Posts auf der User-Seite */
+.post-container {
+  margin-top: 30px;
+}
+
+.post {
+  background-color: #1f1f1f;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.post h3 {
+  font-size: 1.8em;
+  color: #ffffff;
+}
+
+.post p {
+  color: #b0b0b0;
+  font-size: 1.2em;
+}
+
+button {
+  background-color: #03dac6;
+  color: #121212;
+}
+
+button:hover {
+  background-color: #018786;
+}
+
+/* Admin-Spezifische Container */
+.admin-container {
+  margin-top: 50px;
+}
+
+.admin-container h2 {
+  font-size: 2.5em;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+#admin-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+button {
+  font-size: 1.2em;
+}
+
+/* Styling für Posts im Admin-Bereich */
+#admin-posts .post {
+  background-color: #333333;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+#admin-posts .post h3 {
+  color: #ffffff;
+  font-size: 1.6em;
+}
+
+#admin-posts .post p {
+  color: #bbb;
+  font-size: 1.2em;
+}
+
+#admin-posts .post button {
+  margin-right: 10px;
+  background-color: #ff4081;
+}
+
+#admin-posts .post button:hover {
+  background-color: #f50057;
+}
+
+/* Hover-Effekte für interaktive Elemente */
+button:hover {
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(1);
+}
+
+/* Styling für die Kommentarbox */
+textarea {
+  width: 100%;
+  padding: 10px;
+  background-color: #1f1f1f;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 5px;
+  font-size: 1em;
   margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+textarea:focus {
+  background-color: #333;
+  outline: none;
+  border-color: #6200ea;
+}
+
+/* Zusätzliche Stil-Elemente für mobile Ansichten */
+@media screen and (max-width: 768px) {
+  h2 {
+    font-size: 2em;
+  }
+
+  .main-container {
+    margin-top: 30px;
+  }
+
+  button {
+    width: 100%;
+    font-size: 1.2em;
+  }
+
+  .post-container, .admin-container {
+    margin-top: 20px;
+  }
 }
