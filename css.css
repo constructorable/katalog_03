@@ -11,6 +11,10 @@ body {
   background-color: #0a0a0a; /* Sehr dunkler Hintergrund für die gesamte Seite */
   color: #e0e0e0; /* Helle Schriftfarbe für bessere Lesbarkeit */
   line-height: 1.6;
+  display: flex;
+  justify-content: center;  /* Horizontale Zentrierung */
+  align-items: center;      /* Vertikale Zentrierung */
+  min-height: 100vh;         /* Sicherstellen, dass der Body mindestens die Höhe des Viewports einnimmt */
   padding: 20px;
   transition: all 0.3s ease;
 }
@@ -18,7 +22,8 @@ body {
 /* Styling für den Container auf der Startseite */
 .main-container {
   text-align: center;
-  margin-top: 50px;
+  max-width: 100%;          /* Maximale Breite des Containers */
+  width: 600px;             /* Breite des Containers festlegen */
 }
 
 h2 {
