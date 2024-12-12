@@ -1,29 +1,79 @@
-<!-- admin.html -->
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin-Bereich</title>
-  <!-- Zentrale CSS-Datei mit absolutem Pfad einbinden -->
-  <link rel="stylesheet" href="https://constructorable.github.io/katalog_03/css.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Beitrag hochladen</title>
+    <link rel="stylesheet" href="https://constructorable.github.io/katalog_03/css.css">
 </head>
 <body>
-  <div class="admin-container">
-    <h2>Admin Bereich</h2>
-    <p>Willkommen, Admin. Hier können Beiträge erstellt und verwaltet werden.</p>
 
-    <!-- Platz für Admin-Funktionen -->
-    <button onclick="addPost()">Beitrag hinzufügen</button>
+    <div class="main-container">
+        <h2>Admin Dashboard</h2>
 
-    <div id="admin-posts">
-      <!-- Hier wird später eine Liste von Beiträgen für Admin angezeigt -->
-      <p>Beiträge werden bald angezeigt!</p>
+        <!-- Formular zum Hochladen eines Beitrags -->
+        <form id="postForm">
+            <textarea id="postText" placeholder="Geben Sie Ihren Beitrag ein..." rows="6" required></textarea><br>
+            <button type="submit">Beitrag hochladen</button>
+        </form>
+
+        <div id="statusMessage" style="margin-top: 20px; color: green;"></div>
     </div>
-  </div>
 
-  <!-- Zentrale JS-Datei mit absolutem Pfad einbinden -->
-  <script src="https://constructorable.github.io/katalog_03/js001.js"></script>
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-storage.js";
+        import { getDatabase, ref as dbRef, set, get, child, update } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSg90",
+            authDomain: "simopp.com",
+            databaseURL: "https://stabase.app",
+            projectId: "simom002",
+            storageBucket: "simorage.app",
+            messagingSenderId: "1762",
+            appId: "1:17425d96837"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const storage = getStorage(app);
+        const database = getDatabase(app);
+
+        // Formular zum Hochladen eines Beitrags
+        const postForm = document.getElementById('postForm');
+        const postText = document.getElementById('postText');
+        const statusMessage = document.getElementById('statusMessage');
+
+        postForm.addEventListener('submit', (event) => {
+            event.preventDefault();  // Verhindert das normale Absenden des Formulars
+
+            const text = postText.value.trim();  // Den eingegebenen Text extrahieren
+
+            if (text) {
+                // Beitrag in Firebase speichern
+                const postsRef = dbRef(database, 'posts');  // Der Knoten 'posts' in der Firebase Realtime Database
+                const newPostRef = dbRef(postsRef);  // Neuer Beitrag unter 'posts' erstellen
+
+                const postId = newPostRef.push().key;  // Generiert eine eindeutige ID für den neuen Beitrag
+
+                set(dbRef(postsRef, postId), {
+                    text: text,
+                    timestamp: new Date().toISOString()  // Zeitstempel hinzufügen
+                }).then(() => {
+                    statusMessage.style.color = 'green';
+                    statusMessage.textContent = 'Beitrag erfolgreich hochgeladen!';
+                    postText.value = '';  // Textfeld zurücksetzen
+                }).catch((error) => {
+                    statusMessage.style.color = 'red';
+                    statusMessage.textContent = `Fehler: ${error.message}`;
+                });
+            } else {
+                statusMessage.style.color = 'red';
+                statusMessage.textContent = 'Bitte geben Sie einen Text ein!';
+            }
+        });
+    </script>
+
 </body>
 </html>
-
