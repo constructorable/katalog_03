@@ -1,80 +1,78 @@
-<!-- login.html -->
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Login</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div class="login-container">
-    <h2>Admin Login</h2>
-    <form id="loginForm">
-      <input type="text" id="username" placeholder="Benutzername" required>
-      <input type="password" id="password" placeholder="Passwort" required>
-      <button type="submit">Login</button>
-    </form>
-    <p id="loginError" class="error"></p>
-  </div>
+// js001.js
 
-  <script src="app.js"></script>
-</body>
-
-
-<style>
-
-    /* styles.css */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f4f4f4;
+// Diese Funktion leitet zur User-Seite weiter
+function redirectToUser() {
+  window.location.href = 'https://constructorable.github.io/katalog_03/user.html';
 }
 
-h2 {
-  text-align: center;
+// Diese Funktion leitet zur Admin-Seite weiter
+function redirectToAdmin() {
+  window.location.href = 'https://constructorable.github.io/katalog_03/admin.html';
 }
 
-.login-container, .post-container {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 300px;
+// Diese Funktion zeigt eine Nachricht an (z.B. als Alert für User)
+function showMessage(message) {
+  alert(message);
 }
 
-input {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+// Diese Funktion zeigt Beiträge dynamisch an (dies könnte später mit Firebase oder einer API ergänzt werden)
+function loadPosts() {
+  const postsContainer = document.getElementById('posts');
+  postsContainer.innerHTML = '';  // Vorherige Posts löschen
+
+  // Beispiel-Daten (diese Daten können später dynamisch geladen werden)
+  const posts = [
+    { title: "Erster Beitrag", content: "Dies ist der erste Beitrag." },
+    { title: "Zweiter Beitrag", content: "Dies ist der zweite Beitrag." },
+    { title: "Dritter Beitrag", content: "Dies ist der dritte Beitrag." }
+  ];
+
+  // Beiträge dynamisch hinzufügen
+  posts.forEach(post => {
+    const postElement = document.createElement('div');
+    postElement.classList.add('post');
+    postElement.innerHTML = `
+      <h3>${post.title}</h3>
+      <p>${post.content}</p>
+      <button onclick="showMessage('Kommentar hinzufügen für: ${post.title}')">Kommentar hinzufügen</button>
+    `;
+    postsContainer.appendChild(postElement);
+  });
 }
 
-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
+// Diese Funktion lädt Beiträge für den Admin-Bereich
+function loadAdminPosts() {
+  const adminPostsContainer = document.getElementById('admin-posts');
+  adminPostsContainer.innerHTML = '';  // Vorherige Beiträge löschen
+
+  // Beispiel-Daten (dies könnte später durch eine API oder Firebase ersetzt werden)
+  const adminPosts = [
+    { title: "Admin Beitrag 1", content: "Verwaltung der Beiträge." },
+    { title: "Admin Beitrag 2", content: "Admin-Features hier." }
+  ];
+
+  // Admin Beiträge dynamisch hinzufügen
+  adminPosts.forEach(post => {
+    const postElement = document.createElement('div');
+    postElement.classList.add('post');
+    postElement.innerHTML = `
+      <h3>${post.title}</h3>
+      <p>${post.content}</p>
+      <button onclick="editPost('${post.title}')">Bearbeiten</button>
+      <button onclick="deletePost('${post.title}')">Löschen</button>
+    `;
+    adminPostsContainer.appendChild(postElement);
+  });
 }
 
-button:hover {
-  background-color: #45a049;
+// Diese Funktion wird aufgerufen, um einen Beitrag zu bearbeiten
+function editPost(postTitle) {
+  showMessage(`Beitrag "${postTitle}" bearbeiten.`);
 }
 
-.error {
-  color: red;
-  text-align: center;
+// Diese Funktion wird aufgerufen, um einen Beitrag zu löschen
+function deletePost(postTitle) {
+  showMessage(`Beitrag "${postTitle}" gelöscht.`);
 }
 
-
-</style>
-
-</html>
+// Hier können zusätzliche Funktionen für Kommentare, Formulare und Validierungen hinzugefügt werden
