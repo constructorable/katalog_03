@@ -8,7 +8,7 @@
 /* Hintergrund und Textfarbe für den gesamten Body */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #0a0a0a; /* Sehr dunkler Hintergrund für die gesamte Seite */
+  background-color: #121212; /* Sehr dunkler Hintergrund im Stil von Instagram Darkmode */
   color: #e0e0e0; /* Helle Schriftfarbe für bessere Lesbarkeit */
   line-height: 1.6;
   display: flex;
@@ -22,35 +22,41 @@ body {
 /* Styling für den Container auf der Startseite */
 .main-container {
   text-align: center;
-  max-width: 100%;          /* Maximale Breite des Containers */
-  width: 600px;             /* Breite des Containers festlegen */
-  background-color: #1c1c1c; /* Sehr dunkles Grau für den Container */
-  border-radius: 10px;      /* Abgerundete Ecken für den Container */
-  padding: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); /* Dunklerer Schatten für 3D-Effekt */
+  max-width: 100%;
+  width: 500px;  /* Breite des Containers */
+  background-color: #1c1c1c;  /* Sehr dunkles Grau für den Container */
+  border-radius: 10px;  /* Abgerundete Ecken */
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7); /* Sanfter Schatten */
 }
 
 /* Header */
 h2 {
-  font-size: 2.5em;
+  font-size: 2.4em;
   color: #ffffff;
   margin-bottom: 20px;
+  font-weight: bold;
 }
 
 button {
-  background-color: #6200ea;
+  background-color: #0095f6; /* Instagram Blau für Buttons */
   color: #fff;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 25px;
   margin: 10px;
   cursor: pointer;
   border-radius: 5px;
   font-size: 1em;
   transition: background-color 0.3s ease;
+  text-transform: uppercase;
 }
 
 button:hover {
-  background-color: #3700b3;
+  background-color: #0077cc; /* Dunkleres Blau für Hover-Effekt */
+}
+
+button:active {
+  transform: scale(0.98); /* Kleinere Animation bei Klick */
 }
 
 /* Styling für den Container der Posts auf der User-Seite */
@@ -59,31 +65,33 @@ button:hover {
 }
 
 .post {
-  background-color: #1b1b1b; /* Sehr dunkles Grau für die Posts */
-  border-radius: 10px;
+  background-color: #1e1e1e; /* Dunkles Grau für Posts */
+  border-radius: 15px;  /* Abgerundete Ecken für Posts */
   padding: 15px;
   margin-bottom: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Dunklerer Schatten für den 3D-Effekt */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Sanfterer Schatten */
   transition: all 0.3s ease;
 }
 
 .post h3 {
-  font-size: 1.8em;
+  font-size: 1.7em;
   color: #ffffff;
+  font-weight: bold;
 }
 
 .post p {
   color: #b0b0b0;
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 button {
-  background-color: #03dac6;
-  color: #121212;
+  background-color: #25d366; /* Grüner Button für die Interaktion */
+  color: #ffffff;
+  padding: 8px 20px;
 }
 
 button:hover {
-  background-color: #018786;
+  background-color: #128c7e; /* Dunkleres Grün für Hover-Effekt */
 }
 
 /* Admin-Spezifische Container */
@@ -109,10 +117,10 @@ button {
 
 /* Styling für Posts im Admin-Bereich */
 #admin-posts .post {
-  background-color: #333333; /* Dunkles Grau für Admin-Posts */
+  background-color: #333333; /* Dunkleres Grau für Admin-Posts */
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Dunkler Schatten */
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7); /* Tieferer Schatten */
 }
 
 #admin-posts .post h3 {
@@ -147,7 +155,7 @@ button:active {
 textarea {
   width: 100%;
   padding: 10px;
-  background-color: #1f1f1f; /* Sehr dunkler Hintergrund für Textarea */
+  background-color: #2a2a2a; /* Sehr dunkler Hintergrund für die Textarea */
   color: #fff;
   border: 1px solid #333;
   border-radius: 5px;
@@ -159,7 +167,7 @@ textarea {
 textarea:focus {
   background-color: #333;
   outline: none;
-  border-color: #6200ea;
+  border-color: #0095f6; /* Blau wie der Instagram Button */
 }
 
 /* Zusätzliche Stil-Elemente für mobile Ansichten */
