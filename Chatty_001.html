@@ -51,23 +51,17 @@
         }
 
         textarea {
-            width: calc(100% - 50px);
+            flex-grow: 1;
+            /* Textarea wächst, um den verfügbaren Raum auszufüllen */
             padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background: #555;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            background-color: #222;
             color: #fff;
-            margin-right: 10px;
-            box-sizing: border-box;
-            font-size: 22px;
             resize: none;
-            /* Verhindert manuelles Größenändern */
-            overflow-y: scroll;
-            /* Scrollbalken immer sichtbar */
-            max-height: 200px;
-            /* Maximale Höhe des Textfeldes */
-            transition: height 0.2s;
-            /* Weiche Übergänge bei Höhenänderung */
+            transition: border-color 0.3s ease;
+            width: 75%;
         }
 
         textarea::-webkit-scrollbar {
@@ -90,20 +84,20 @@
 
 
 
+
+        /* Absendebutton Styling */
         .send-button {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            background: #ffbf00;
+            padding: 5px 15px;
+            background-color: #ffbf00;
+            /* Helle Blau für den Button */
+            color: rgb(0, 0, 0);
             border: none;
-            color: white;
-            border-radius: 50%;
+            border-radius: 53px;
+            font-size: 18px;
             cursor: pointer;
-            font-size: 22px;
-            font-weight: 800;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
+
 
 
 
@@ -116,7 +110,7 @@
             align-items: center;
             justify-content: space-between;
             position: sticky;
-            bottom: 0;
+            bottom: -10px;
             padding: 10px;
             background: #2c2c2c;
             border-radius: 10px;
@@ -156,37 +150,6 @@
             font-weight: bold;
         }
 
-        .send-button2:hover {
-            background: #9a6f00;
-        }
-
-        .send-button {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            background: #ffbf00;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .send-button::before {
-            content: "";
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-top: 8px solid transparent;
-            border-bottom: 8px solid transparent;
-            border-left: 12px solid black;
-            /* Pfeil-Farbe */
-        }
-
-        .textfeld {
-            background-color: #fc0;
-        }
 
         .password-container {
             display: flex;
@@ -214,9 +177,189 @@
             background: #ffbf00;
             border: none;
             border-radius: 5px;
-            color: white;
+            color: rgb(0, 0, 0);
             font-size: 18px;
             cursor: pointer;
+        }
+
+        .image-upload {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+
+        /* Container für das Bild-Upload */
+        .image-upload {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /* Ausblenden des Datei-Input-Elements */
+        #imageInput {
+            display: none;
+        }
+
+        /* Gestaltung des Upload-Buttons */
+        .upload-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            background-color: #ffbf00;
+            /* Helle Blau als Buttonfarbe */
+            color: rgb(0, 0, 0);
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+
+        /* Icon im Button */
+        .upload-icon {
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            filter: brightness(0) invert(1);
+            /* Weißes Icon */
+        }
+
+
+
+
+
+
+
+        /* Container für das Texteingabefeld und den Absendebutton */
+        .textfeld {
+            position: fixed;
+            bottom: 3rem;
+            left: 0;
+            width: 100%;
+            background-color: rgb(35, 35, 35);
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* Textarea Styling */
+        textarea {
+            flex-grow: 1;
+            /* Textarea wächst, um den verfügbaren Raum auszufüllen */
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            background-color: #2c2c2c;
+            color: #fff;
+            resize: none;
+            transition: border-color 0.3s ease;
+        }
+
+        /* Textarea Fokus Styling */
+        textarea:focus {
+            border-color: #deb603;
+            /* Blaue Umrandung beim Fokussieren */
+            outline: none;
+        }
+
+        /* Absendebutton Styling */
+        .send-button {
+            padding: 12px;
+            background-color: #ffbf00;
+            /* Helle Blau für den Button */
+            color: rgb(0, 0, 0);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+
+        /* SVG Pfeil */
+        .send-button svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Modal-Styles */
+        .modal {
+            display: none;
+            /* Standardmäßig unsichtbar */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            /* Dunkler Hintergrund */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            margin: 20px;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .modal img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .textfeld textarea {
+            width: 80%;
+            height: 50px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            resize: none;
+        }
+
+        .textfeld .send-button {
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .textfeld .send-button svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
         }
     </style>
 </head>
@@ -232,7 +375,19 @@
         <button class="password-button" id="passwordButton">Einloggen</button>
     </div>
 
-    <!-- Chat-Container, anfangs unsichtbar -->
+
+    <!-- Modal für Bildanzeige -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <img id="modalImage" src="" alt="Bild im Großformat">
+        </div>
+    </div>
+
+
+
+
+    <!-- Chat-Container -->
     <div class="chat-container" id="chatContainer">
 
         <div class="nick">
@@ -241,17 +396,35 @@
         </div>
 
         <div class="messages" id="messages"></div>
-        <div class="textfeld">
-            <textarea id="messageInput" placeholder="Nachricht schreiben..."></textarea>
-            <button id="sendMessage" class="send-button">&#129170;</button>
 
+        <div class="interactive">
+            <div class="textfeld">
+                <textarea id="messageInput" placeholder="Nachricht schreiben..."></textarea>
+                <button id="sendMessage" class="send-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 12h16M12 4l8 8-8 8"></path>
+                    </svg>
+                </button>
+
+            </div>
+
+            <div class="image-upload">
+                <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                <label for="imageInput" id="uploadImage" class="upload-button">
+                    <span>Bild hochladen</span>
+                    <img src="https://img.icons8.com/ios/452/plus.png" alt="Upload Icon" class="upload-icon">
+                </label>
+            </div>
         </div>
+
     </div>
 
     <script type="module">
         // Firebase-Dienste importieren
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
         import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+        import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-storage.js";
 
         // Firebase-Konfiguration
         const firebaseConfig = {
@@ -267,6 +440,7 @@
         // Firebase initialisieren
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
+        const storage = getStorage(app);
         const chatRef = ref(database, "chat");
 
         // Benutzername aus dem localStorage laden oder festlegen
@@ -276,8 +450,6 @@
             localStorage.setItem("username", username);
         }
 
-        // Nachricht beim Laden der Seite senden
-        // Nachricht beim Laden der Seite senden
         // Cookie-Wert auslesen
         function getCookie(name) {
             const value = `; ${document.cookie}`;
@@ -309,12 +481,12 @@
             }
 
             // Nachricht in die Datenbank schreiben (Systemnachricht)
-            push(chatRef, {
-                text: `Ein Besucher (${username}) hat die Seite geöffnet. IP-Adresse: ${ipAddress}`,
-                username: "System",
-                isSystemMessage: true, // Kennzeichnung als Systemnachricht
-                timestamp: timestamp
-            });
+            /*             push(chatRef, {
+                            text: `Ein Besucher (${username}) hat die Seite geöffnet. IP-Adresse: ${ipAddress}`,
+                            username: "System",
+                            isSystemMessage: true, // Kennzeichnung als Systemnachricht
+                            timestamp: timestamp
+                        }); */
         }
 
         // Nachricht senden, wenn die Seite geladen wird
@@ -330,6 +502,8 @@
         const messageInput = document.getElementById("messageInput");
         const sendMessageButton = document.getElementById("sendMessage");
         const changeUsernameButton = document.getElementById("changeUsername");
+        const imageInput = document.getElementById("imageInput");
+        const uploadImageButton = document.getElementById("uploadImage");
 
 
         // Passwortabfrage
@@ -339,11 +513,15 @@
         const passwordButton = document.getElementById("passwordButton");
         const correctPassword = "123";
 
+        // Passwortabfrage
         passwordButton.addEventListener("click", () => {
             const password = passwordInput.value;
             if (password === correctPassword) {
                 passwordContainer.style.display = "none";  // Passwortbereich ausblenden
                 chatContainer.style.display = "flex";      // Chat anzeigen
+
+                // Kleine Verzögerung, um sicherzustellen, dass der gesamte Chat geladen wurde
+                setTimeout(scrollToBottom, 300);  // Warten Sie 300ms, bevor Sie zum neuesten Eintrag scrollen
             } else {
                 alert("Falsches Passwort. Bitte versuchen Sie es erneut.");
                 passwordInput.value = "";  // Eingabefeld leeren
@@ -365,6 +543,29 @@
             }
         });
 
+        // Bild hochladen
+        uploadImageButton.addEventListener("click", () => {
+            const file = imageInput.files[0];
+            if (file) {
+                const imageRef = storageRef(storage, `images/${Date.now()}_${file.name}`);
+                uploadBytes(imageRef, file).then(snapshot => {
+                    return getDownloadURL(snapshot.ref);
+                }).then(url => {
+                    // Bild-URL als Nachricht in die Datenbank schreiben
+                    push(chatRef, {
+                        text: `<img src='${url}' alt='Hochgeladenes Bild' style='max-width: 200px;'>`,
+                        username: username,
+                        timestamp: new Date().toISOString()
+                    });
+                    alert("Bild erfolgreich hochgeladen.");
+                }).catch(error => {
+                    console.error("Fehler beim Hochladen des Bildes:", error);
+                });
+            } else {
+                alert("Bitte wählen Sie ein Bild aus.");
+            }
+        });
+
         // Benutzernamen ändern
         changeUsernameButton.addEventListener("click", () => {
             const newUsername = prompt("Neuen Namen eingeben:", username);
@@ -375,20 +576,9 @@
             }
         });
 
-
-
-
-
-
-        // Nachrichten empfangen und anzeigen
+        // Beim Hinzufügen der Nachricht den Klick-Handler für Bilder hinzufügen
         onChildAdded(chatRef, (snapshot) => {
             const data = snapshot.val();
-
-            // Systemnachrichten ignorieren
-            if (data.isSystemMessage) {
-                return; // Nachricht wird nicht angezeigt
-            }
-
             const messageDiv = document.createElement("div");
             messageDiv.classList.add("message");
 
@@ -397,25 +587,58 @@
                 minute: "2-digit"
             });
 
-            messageDiv.innerHTML = `<span>${data.username} (${time}):</span> ${data.text}`;
+            // Prüfen, ob es sich um ein Bild handelt
+            if (data.text.includes('<img')) {
+                // Bild anzeigen und Klick-Event für das Bild hinzufügen
+                const imageUrl = data.text.match(/src='(.*?)'/)[1];
+                messageDiv.innerHTML = `<span>${data.username} (${time}):</span> <span class="chat-image"><img src="${imageUrl}" alt="Bild" style="max-width: 200px;"></span>`;
+
+                // Event-Listener hinzufügen, um das Modal zu öffnen
+                messageDiv.querySelector("img").addEventListener("click", () => openModal(imageUrl));
+            } else {
+                messageDiv.innerHTML = `<span>${data.username} (${time}):</span> ${data.text}`;
+            }
+
             messagesDiv.appendChild(messageDiv);
 
             // Scrollen zum letzten Eintrag
-            scrollToBottom();
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
         });
 
-
-
-
-
-        // Scrollen zum letzten Eintrag
-        function scrollToBottom() {
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
 
         // Sofort beim Laden zum letzten Eintrag scrollen
         window.addEventListener('load', () => {
             setTimeout(scrollToBottom, 500);
+        });
+
+
+        // Funktion, um zum neuesten Chat-Eintrag zu scrollen
+        function scrollToBottom() {
+            const messagesDiv = document.getElementById("messages");
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Modal öffnen
+        function openModal(imageUrl) {
+            const modal = document.getElementById("imageModal");
+            const modalImage = document.getElementById("modalImage");
+            modal.style.display = "flex"; // Modal sichtbar machen
+            modalImage.src = imageUrl; // Bild im Modal setzen
+        }
+
+        // Modal schließen
+        const closeModalButton = document.getElementById("closeModal");
+        closeModalButton.addEventListener("click", () => {
+            const modal = document.getElementById("imageModal");
+            modal.style.display = "none"; // Modal schließen
+        });
+
+        // Wenn man außerhalb des Bildes klickt, Modal schließen
+        window.addEventListener("click", (event) => {
+            const modal = document.getElementById("imageModal");
+            if (event.target === modal) {
+                modal.style.display = "none"; // Modal schließen
+            }
         });
 
         // Dynamische Größenanpassung bei Eingabe
