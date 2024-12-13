@@ -25,8 +25,10 @@
             flex-grow: 1;
             padding: 1px;
             display: none;
-            /* Startet versteckt */
+            margin-left: 15px;
+            margin-right: 15px;
         }
+
 
         .messages {
             flex-grow: 1;
@@ -36,12 +38,12 @@
             padding: 10px;
             background: #222;
             border-radius: 5px;
-            max-height:75vh;
-            height:75vh;
+            max-height: 75vh;
+            height: 75vh;
         }
 
         .message {
-            margin-bottom: 10px;
+            margin-bottom: 22px;
             padding: 10px;
             border-radius: 5px;
             background: #444;
@@ -114,7 +116,7 @@
             position: sticky;
             bottom: -12px;
             padding: 0px;
-            background: #222;
+            background: #242424;
             border-radius: 10px;
             z-index: 1;
         }
@@ -184,7 +186,7 @@
             cursor: pointer;
         }
 
- 
+
         /* Container für das Bild-Upload */
         .image-upload {
             display: flex;
@@ -243,6 +245,7 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
+            margin-left: 15px;
         }
 
         /* Textarea Styling */
@@ -335,10 +338,11 @@
             width: 80%;
             height: 50px;
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #3e3e3e;
             border-radius: 5px;
             font-size: 16px;
             resize: none;
+            background-color: #171717;
         }
 
         .textfeld .send-button {
@@ -349,7 +353,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-left: 9px;
+            margin-left: 23px;
         }
 
         .textfeld .send-button svg {
@@ -357,6 +361,11 @@
             height: 24px;
             stroke: rgb(0, 0, 0);
         }
+
+        .send-button {
+            margin-right: 15px;
+        }
+
     </style>
 </head>
 
