@@ -17,7 +17,7 @@
     };
 
         // Firebase initialisieren
-        const app = initializeApp(firebaseConfig);
+        const app = initializeApp(_0x877a91);
         const database = getDatabase(app);
         const storage = getStorage(app);
         const chatRef = ref(database, "chat");
