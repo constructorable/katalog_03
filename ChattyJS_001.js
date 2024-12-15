@@ -4,15 +4,21 @@
         import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-storage.js";
 
         // Firebase-Konfiguration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDpsXkabP5ZqwQKKo8TtKpVDNpkn0e0JJg",
-            authDomain: "chatty001-d105c.firebaseapp.com",
-            databaseURL: "https://chatty001-d105c-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "chatty001-d105c",
-            storageBucket: "chatty001-d105c.firebasestorage.app",
-            messagingSenderId: "819043103543",
-            appId: "1:819043103543:web:e93fadc09274a84970e0b2"
-        };
+    const _0x7a91 = ["AIzaSyDpsXkabP5ZqwQKKo8TtKpVDNpkn0e0JJg", "chatty001-d105c.firebaseapp.com", "https://chatty001-d105c-default-rtdb.europe-west1.firebasedatabase.app", "chatty001-d105c", "chatty001-d105c.firebasestorage.app", "819043103543", "1:819043103543:web:e93fadc09274a84970e0b2"];
+
+    const _0x38ac = function(_0x1b30, _0x2e47) {
+        return _0x1b30 + _0x2e47;
+    };
+
+    const _0x11b3 = {
+        apiKey: _0x7a91[0],  // apiKey direkt zugewiesen, ohne Manipulation
+        authDomain: _0x7a91[1],
+        databaseURL: _0x7a91[2],
+        projectId: _0x7a91[3],
+        storageBucket: _0x7a91[4],
+        messagingSenderId: _0x7a91[5],
+        appId: _0x7a91[6]
+    };
 
         // Firebase initialisieren
         const app = initializeApp(firebaseConfig);
