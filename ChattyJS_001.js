@@ -1,4 +1,3 @@
-<script type="module">
         // Firebase-Dienste importieren
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
         import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
@@ -219,8 +218,3 @@
             textarea.style.height = "auto"; // Zurücksetzen der Höhe, um die korrekte Höhe zu berechnen
             textarea.style.height = `${Math.min(textarea.scrollHeight, 200)}px`; // Höhe anpassen, aber max. 200px
         });
-
-
-
-
-    </script>
