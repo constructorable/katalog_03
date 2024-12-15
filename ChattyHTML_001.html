@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="module" src="https://constructorable.github.io/katalog_03/ChattyJS_001.js"></script>
+	<link rel="stylesheet" href="ttps://constructorable.github.io/katalog_03/ChattyCSS_001.css">
+    <title>Chat-App</title>
+
+</head>
+
+<body>
+
+
+
+    <!-- Passwort-Abfrage -->
+    <div class="password-container" id="passwordContainer">
+        <h2>Bitte Passwort eingeben</h2>
+        <input type="password" id="passwordInput" class="password-input" placeholder="Passwort" />
+        <button class="password-button" id="passwordButton">Einloggen</button>
+    </div>
+
+
+    <!-- Modal für Bildanzeige -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <img id="modalImage" src="" alt="Bild im Großformat">
+        </div>
+    </div>
+
+
+
+
+    <!-- Chat-Container -->
+    <div class="chat-container" id="chatContainer">
+
+        <div class="nick">
+            <div class="usernameswitch">Nickname ändern</div>
+            <button id="changeUsername" class="send-button2" title="Benutzernamen ändern">✎</button>
+        </div>
+
+        <div class="messages" id="messages"></div>
+
+        <div class="interactive">
+            <div class="textfeld">
+                <textarea id="messageInput" placeholder="Nachricht schreiben..."></textarea>
+                <button id="sendMessage" class="send-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 12h16M12 4l8 8-8 8"></path>
+                    </svg>
+                </button>
+
+            </div>
+
+            <div class="image-upload">
+                <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                <label for="imageInput" id="uploadImage" class="upload-button">
+                    <span>Bild hochladen</span>
+                    <img src="https://img.icons8.com/ios/452/plus.png" alt="Upload Icon" class="upload-icon">
+                </label>
+            </div>
+        </div>
+
+    </div>
+
+    
+</body>
+
+</html>
