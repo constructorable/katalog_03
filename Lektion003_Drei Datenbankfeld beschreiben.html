@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rating</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<!--     <div id="overlay">
+        <div class="overlay-content">
+            <p>Wie du weißt mag ich es maximal voll, weit und offen (hinten). Für mehr klicke hier 😉</p>
+            <button id="startButton">Start</button>
+        </div>
+    </div> -->
+    
+
+    
+    <div class="container">
+        <h2>Wie du weißt mag ich es maximal voll, weit und offen (hinten)</h2>
+        <form id="dataForm">
+            <!-- Sterne-Bewertung mit 7 Sternen -->
+            <div class="form-group">
+                <label>Wie findest du den Grundgedanken?</label>
+                <div class="stars">
+                    <input type="radio" name="rating" value="1" id="star1"><label for="star1">★</label>
+                    <input type="radio" name="rating" value="2" id="star2"><label for="star2">★</label>
+                    <input type="radio" name="rating" value="3" id="star3"><label for="star3">★</label>
+                    <input type="radio" name="rating" value="4" id="star4"><label for="star4">★</label>
+                    <input type="radio" name="rating" value="5" id="star5"><label for="star5">★</label>
+                    <input type="radio" name="rating" value="6" id="star6"><label for="star6">★</label>
+                    <input type="radio" name="rating" value="7" id="star7"><label for="star7">★</label>
+                </div>
+            </div>
+
+            <!-- Radiobuttons (Tier, Fisch, Pflanze) -->
+            <div class="form-group">
+                <label>Darf man dich vorne und hinten füllen?:</label>
+                <div>
+                    <label>
+                        <input type="radio" name="category" value="ja"> ja
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="category" value="nein"> nein
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="category" value="nur hinten, dann wirds tiefer und weiter 😉"> nur
+                        hinten, dann wirds tiefer und weiter 😉
+                    </label>
+                </div>
+            </div>
+
+            <!-- Dropdown-Feld 1 -->
+            <div class="form-group">
+                <label for="dropdown">Wie lang darf der Freund sein? (bitte bedenke, dass er versehentlich ganz in dir
+                    verschwinden könnte 😉)</label>
+                <select id="dropdown">
+                    <option value="" disabled selected> </option> <!-- Leere Option als Platzhalter -->
+                    <option value="15 cm">15 cm</option>
+                    <option value="18 cm">18 cm</option>
+                    <option value="21 cm">21 cm</option>
+                    <option value="24 cm">24 cm</option>
+                    <option value="27 cm">27 cm</option>
+                    <option value="30 cm">30 cm</option>
+                    <option value="35 cm">35 cm</option>
+                </select>
+            </div>
+
+            <!-- Dropdown-Feld 2 -->
+            <div class="form-group">
+                <label for="dropdown2">Wie dick darf er sein?</label>
+                <select id="dropdown2">
+                    <option value="" disabled selected> </option> <!-- Leere Option als Platzhalter -->
+                    <option value="2 cm">2 cm</option>
+                    <option value="3 cm">3 cm</option>
+                    <option value="4 cm">4 cm</option>
+                    <option value="5 cm">5 cm</option>
+                    <option value="6 cm">6 cm</option>
+                </select>
+            </div>
+
+            <!-- Radio-Feld 3 -->
+            <div class="form-group">
+                <label>Darf er in rythmischen Bewegungen ganz rein / ganz raus?</label>
+                <div>
+                    <label>
+                        <input type="radio" name="category2" value="ja"> ja
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="category2" value="nein"> nein
+                    </label>
+                </div>
+            </div>
+
+            <!-- Zweiter Radiobutton (zusätzlich zu den oben genannten) -->
+            <div class="form-group">
+                <label>Hältst du dann dein Pol*ch schön offen? Wenn ja durch Entspannung oder mit den Händen die
+                    P*backen spreizen?</label>
+                <div>
+                    <label>
+                        <input type="radio" name="additionalCategory" value="ja"> ja
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="additionalCategory" value="ja,Entspannung"> ja, durch Entspannung
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="additionalCategory" value="ja+Hände"> ja, zusätzlich mit den Händen...
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input type="radio" name="additionalCategory" value="nein"> nein
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="comment">sonst noch was, was ich vielleicht vergessen habe?</label>
+                <textarea id="comment" name="comment" placeholder="Freitext..."></textarea>
+                <br><br>
+                P.S. Du bist einfach zu heiß...
+            </div>
+
+
+
+            <button type="submit">Go 😍</button>
+        </form>
+        <div id="alert-container"></div>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
